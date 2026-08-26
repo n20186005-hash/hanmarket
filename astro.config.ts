@@ -1,12 +1,13 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
+import path from "node:path";
 
-// The one and only production URL configuration. Leave undefined until a domain is assigned.
 const site = undefined;
 
 export default defineConfig({
   site,
+  publicDir: path.resolve(import.meta.dirname, "public"),
   integrations: site ? [sitemap()] : [],
   vite: {
     plugins: [tailwindcss()],
