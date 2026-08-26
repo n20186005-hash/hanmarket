@@ -1,0 +1,79 @@
+---
+// River-market editorial style: consistent indigo-and-paper shell with local-language metadata derived only from Astro site config.
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { text, type Language } from "../data/content";
+
+interface Props {
+  lang: Language;
+  title: string;
+  description: string;
+  path: string;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const { lang, title, description, path, structuredData } = Astro.props;
+const content = text[lang];
+const site = Astro.site;
+const absoluteUrl = site ? new URL(path, site).toString() : undefined;
+const alternateUrl = site ? new URL(content.alternate, site).toString() : undefined;
+const socialImage = site ? new URL("/manus-storage/han-market-exterior-source_6d694687.jpg", site).toString() : undefined;
+const jsonLdItems = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
+---
+<!doctype html>
+<html lang={content.htmlLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#1D4051" />
+    <meta name="color-scheme" content="light" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16.svg" />
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    {absoluteUrl && <link rel="canonical" href={absoluteUrl} />}
+    {absoluteUrl && <link rel="alternate" hreflang={content.htmlLang} href={absoluteUrl} />}
+    {alternateUrl && <link rel="alternate" hreflang={lang === "vi" ? "en" : "vi"} href={alternateUrl} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={content.locale} />
+    <meta property="og:site_name" content={content.siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {absoluteUrl && <meta property="og:url" content={absoluteUrl} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    {jsonLdItems.map((item) => <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />)}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{lang === "vi" ? "Đi đến nội dung" : "Skip to content"}</a>
+    <Header lang={lang} />
+    <main id="main-content"><slot /></main>
+    <Footer lang={lang} />
+    <script is:inline>
+      (() => {
+        const key = "han-market-analytics-consent";
+        const accepted = localStorage.getItem(key) === "granted";
+        if (!accepted || document.querySelector("script[data-han-market-ga]")) return;
+        const ga = document.createElement("script");
+        ga.async = true;
+        ga.src = "https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP";
+        ga.dataset.hanMarketGa = "true";
+        document.head.appendChild(ga);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);}
+        gtag("js", new Date());
+        gtag("config", "G-HXM22WWPKP", { anonymize_ip: true });
+      })();
+    </script>
+  </body>
+</html>

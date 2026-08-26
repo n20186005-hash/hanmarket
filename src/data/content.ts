@@ -1,0 +1,171 @@
+// River-market editorial style: each language is a complete, self-contained local guide; content never interleaves languages.
+export type Language = "vi" | "en";
+
+export const market = {
+  address: "119 Trần Phú, phường Hải Châu, thành phố Đà Nẵng, Việt Nam",
+  geo: { latitude: 16.06827473844429, longitude: 108.21447164945633 },
+  rating: { value: "3.9", count: 44727 },
+  hours: "06:00–19:00",
+};
+
+export const text = {
+  vi: {
+    locale: "vi_VN",
+    htmlLang: "vi",
+    siteName: "Cẩm nang Chợ Hàn",
+    shortName: "Chợ Hàn",
+    route: "/",
+    alternate: "/en/",
+    alternateLabel: "EN",
+    nav: [
+      ["#cau-chuyen", "Câu chuyện"],
+      ["#kham-pha", "Khám phá"],
+      ["#chuan-bi", "Chuẩn bị"],
+      ["#di-chuyen", "Di chuyển"],
+      ["#ban-do", "Bản đồ"],
+    ],
+    meta: {
+      title: "Chợ Hàn Đà Nẵng | Cẩm nang tham quan độc lập",
+      description: "Cẩm nang phi lợi nhuận bằng tiếng Việt về Chợ Hàn: giờ tham khảo, đường đi, tiện ích, khu vực mua sắm và những lưu ý thiết thực.",
+    },
+    hero: {
+      eyebrow: "Cẩm nang độc lập · Đà Nẵng",
+      title: "Đi theo nhịp buổi sáng của chợ.",
+      lead: "Chợ Hàn là điểm gặp gỡ giữa nhịp mua bán thường ngày, hương vị miền Trung và những lối đi đầy màu sắc ngay bên sông Hàn.",
+      primary: "Lập kế hoạch ghé chợ",
+      secondary: "Mở bản đồ",
+      fact: "Địa chỉ · Trần Phú",
+    },
+    quick: [
+      ["Vị trí", "119 Trần Phú, Hải Châu"],
+      ["Giờ tham khảo", "Mỗi ngày · 06:00–19:00"],
+      ["Vé vào cửa", "Không thu vé vào chợ"],
+      ["Thời lượng", "Khoảng 1–2 giờ"],
+    ],
+    story: {
+      eyebrow: "01 · Bối cảnh",
+      title: "Một nhịp giao thương bên sông Hàn.",
+      body: [
+        "Theo các tài liệu du lịch công khai, hoạt động buôn bán tự phát ven sông Hàn đã hình thành nền tảng cho Chợ Hàn từ thập niên 1940. Không gian này lớn dần cùng trung tâm Đà Nẵng và được xây dựng lại thành khu chợ hai tầng vào giai đoạn cuối thế kỷ XX.",
+        "Hôm nay, chợ vẫn là nơi người dân mua những thứ thiết yếu, đồng thời là một điểm dừng để du khách quan sát nhịp sống bản địa. Hãy xem đây là một không gian sinh hoạt — đi chậm, hỏi giá rõ ràng và tôn trọng hoạt động của người bán.",
+      ],
+      ticketTitle: "Ghi chú nguồn",
+      ticket: "Các mốc lịch sử và quy mô được đối chiếu từ nguồn du lịch công khai. Thông tin thực địa có thể thay đổi; hướng dẫn này không thay thế thông báo của ban quản lý chợ.",
+    },
+    journey: {
+      eyebrow: "02 · Đi theo lối chợ",
+      title: "Một vòng tham quan có chủ đích.",
+      intro: "Không cần mua gì để có một trải nghiệm tốt. Ba điểm dừng sau giúp bạn cảm nhận chợ theo nhịp vừa phải.",
+      steps: [
+        ["01", "Nhìn và định hướng", "Bắt đầu từ mặt tiền, ghi nhớ lối vào và đi một vòng ngắn để nhận biết nhóm hàng trước khi chọn mua."],
+        ["02", "Đọc bằng giác quan", "Khu thực phẩm, đồ khô và đặc sản gợi mở hương vị miền Trung; giữ khoảng cách hợp lý với quầy đang phục vụ."],
+        ["03", "Chọn và trao đổi", "Nếu mua hàng, hỏi giá, đơn vị tính, nhãn và điều kiện đóng gói trước khi đồng ý; trao đổi nhẹ nhàng là một phần của trải nghiệm."],
+      ],
+    },
+    floors: {
+      eyebrow: "03 · Không gian",
+      title: "Đi theo nhóm hàng, không theo áp lực mua sắm.",
+      intro: "Sơ đồ và cách bố trí có thể thay đổi theo từng quầy. Hãy xem biển chỉ dẫn tại chợ là thông tin ưu tiên khi bạn đến nơi.",
+      cards: [
+        ["Tầng dưới", "Thực phẩm & đặc sản", "Thường gặp nhóm thực phẩm tươi, thực phẩm khô, hải sản, gia vị, quà tặng đóng gói và quầy ăn. Kiểm tra nhãn, hạn dùng và điều kiện bảo quản trước khi mang đi xa."],
+        ["Tầng trên", "Vải vóc & hàng tiêu dùng", "Đây là nơi thường có vải, trang phục, phụ kiện, đồ gia dụng và đồ lưu niệm. Với may đo hoặc sản phẩm theo yêu cầu, hãy thống nhất thời gian giao và chi tiết trước khi đặt."],
+      ],
+    },
+    photoQuote: "Chợ không chỉ để mua — đó là một lát cắt của đời sống đô thị Đà Nẵng.",
+    photoLabel: "Ảnh minh họa: không gian bên trong chợ · xem ghi chú bản quyền ở cuối trang",
+    practical: {
+      eyebrow: "04 · Chuẩn bị thực tế",
+      title: "Những chi tiết giúp chuyến ghé chợ nhẹ nhàng hơn.",
+      intro: "Các tiện ích và tình trạng vận hành có thể thay đổi theo thời điểm. Nếu cần hỗ trợ, hãy hỏi nhân viên hoặc người phụ trách tại chợ.",
+      rows: [
+        ["Vé & chi phí", "Không có vé vào cửa được nêu trong các cẩm nang công khai. Chi phí phát sinh tùy lựa chọn cá nhân; yêu cầu báo giá, đơn vị tính và chứng từ nếu cần."],
+        ["Bãi xe", "Khu vực gửi xe máy có thể có ở những tuyến đường sát chợ. Chỗ trống và mức thu thay đổi; hãy xác nhận lối vào, giá gửi và giờ lấy xe tại chỗ."],
+        ["Vệ sinh & tiếp cận", "Hỏi biển chỉ dẫn hoặc người phụ trách về nhà vệ sinh, lối đi và hỗ trợ tiếp cận tại thời điểm bạn đến. Không nên giả định vị trí hay khả năng phục vụ cố định."],
+        ["Ăn uống", "Khu chợ có thể có quầy đồ ăn và thức uống. Với dị ứng hoặc chế độ ăn riêng, hãy hỏi thành phần, cách chế biến và chọn phần ăn phù hợp."],
+        ["Mua sắm an tâm", "So sánh trước khi mua, xem kỹ bao bì và hạn dùng; chỉ mua thực phẩm mang đi khi bạn có thể bảo quản phù hợp trong hành trình."],
+      ],
+    },
+    transport: {
+      eyebrow: "05 · Đường đến",
+      title: "Đến chợ từ sân bay, trung tâm và các tuyến xe buýt.",
+      cards: [
+        ["Từ sân bay", "Sân bay quốc tế Đà Nẵng", "Đi taxi hoặc xe đặt qua ứng dụng là lựa chọn trực tiếp khi có hành lý. Hãy nhập đúng địa chỉ 119 Trần Phú và kiểm tra điểm trả khách phù hợp với luồng giao thông."],
+        ["Từ thành phố", "Đi bộ · taxi · xe máy", "Từ khu trung tâm và bờ tây sông Hàn, đi bộ là lựa chọn phù hợp nếu thời tiết thuận lợi. Taxi hoặc xe đặt qua ứng dụng tiện hơn cho nhóm nhỏ, hành lý hoặc giờ nóng mưa."],
+        ["Đi xe buýt", "Tra cứu tuyến đang hoạt động", "Các tuyến xe buýt đô thị có thể thay đổi lộ trình và tần suất. Dùng kênh giao thông công cộng chính thức hoặc công cụ hành trình theo thời gian thực để chọn điểm dừng gần Trần Phú, Bạch Đằng hoặc Hùng Vương."],
+      ],
+      note: "Không nêu số tuyến, giá cước hay thời gian di chuyển cố định vì chúng có thể thay đổi. Hãy kiểm tra điều kiện thời tiết, giao thông và thông báo địa phương trước khi đi.",
+    },
+    map: {
+      eyebrow: "06 · Định vị",
+      title: "Từ bản đồ đến lối vào phù hợp.",
+      copy: "Bản đồ dưới đây hiển thị vị trí tham khảo của Chợ Hàn. Khi đến gần, ưu tiên biển báo thực địa và tuân thủ luồng xe quanh chợ.",
+      addressLabel: "Địa chỉ ghi nhận",
+    },
+    nearby: {
+      eyebrow: "07 · Tiếp nối hành trình",
+      title: "Khám phá lân cận, không cần rời xa nhịp sông Hàn.",
+      intro: "Các gợi ý dưới đây là loại hình và không gian công cộng — không phải khuyến nghị thương mại cho bất kỳ đơn vị cụ thể nào.",
+      cards: [
+        ["Tham quan", "Cầu sông Hàn & bờ sông", "Không gian ven sông phù hợp để đi bộ, ngắm cảnh và nối tiếp một vòng tham quan khu trung tâm."],
+        ["Di sản đô thị", "Nhà thờ & kiến trúc trung tâm", "Khu phố lân cận có các công trình tôn giáo và kiến trúc lịch sử. Tôn trọng giờ hoạt động, trang phục và không gian sinh hoạt của địa điểm."],
+        ["Ẩm thực trung tính", "Quầy chợ & loại hình địa phương", "Bạn có thể tìm các nhóm món như mì, bánh, đồ uống hoặc thực phẩm đóng gói. Tự đánh giá vệ sinh, thành phần và nhu cầu dinh dưỡng thay vì dựa trên quảng cáo."],
+        ["Lưu trú", "Chỗ ở khu trung tâm", "Khu vực trung tâm có nhiều loại hình lưu trú như khách sạn, nhà nghỉ và căn hộ dịch vụ. Chọn nơi phù hợp ngân sách, nhu cầu tiếp cận và lịch trình của bạn."],
+        ["Nhu cầu thường ngày", "Cửa hàng tiện ích & siêu thị", "Các loại hình bán lẻ thiết yếu xuất hiện trong khu trung tâm. Kiểm tra giờ hoạt động trực tiếp thay vì giả định tất cả đều mở muộn."],
+        ["Di chuyển bền vững", "Nhiên liệu & sạc điện", "Tình trạng trạm nhiên liệu hoặc điểm sạc có thể thay đổi. Dùng bản đồ giao thông theo thời gian thực để tìm lựa chọn công cộng hoặc điểm dịch vụ đang hoạt động."],
+      ],
+    },
+    faq: {
+      eyebrow: "08 · Câu hỏi thường gặp",
+      title: "Thông tin ngắn gọn trước khi bạn đi.",
+      items: [
+        ["Chợ Hàn mở cửa khi nào?", "Nhiều nguồn du lịch công khai ghi giờ tham khảo khoảng 06:00–19:00 hằng ngày. Một số quầy có thể thu dọn sớm hơn; hãy xác nhận tại chỗ nếu lịch trình của bạn phụ thuộc vào một khung giờ cụ thể."],
+        ["Có cần mua vé để vào chợ không?", "Các cẩm nang công khai nêu rằng không có vé vào cửa. Chi tiêu phụ thuộc vào các sản phẩm hoặc dịch vụ bạn tự chọn; hãy hỏi giá rõ ràng trước khi mua."],
+        ["Nên dành bao lâu ở chợ?", "Khoảng 1–2 giờ thường đủ cho một vòng quan sát, ăn nhẹ hoặc mua một vài món. Nếu bạn dự định may đo hay tìm sản phẩm cụ thể, hãy dành thêm thời gian trao đổi và kiểm tra điều kiện."],
+        ["Có chỗ gửi xe và nhà vệ sinh không?", "Một số khu vực gửi xe máy nằm gần chợ, nhưng chỗ trống, phí và lối vào thay đổi. Về nhà vệ sinh và tiện ích tiếp cận, hãy hỏi nhân viên tại điểm đến thay vì dựa vào thông tin cũ."],
+        ["Có thể mặc cả không?", "Việc hỏi giá và so sánh là bình thường trong môi trường chợ. Mặc cả nên lịch sự, không gây cản trở việc phục vụ và chỉ tiếp tục khi cả hai bên đều thoải mái."],
+      ],
+    },
+    sourceNote: "Thông tin được biên soạn đối chiếu với tài liệu công khai của cơ quan du lịch và nguồn tham khảo về Đà Nẵng. Giờ mở cửa, giao thông, tiện ích và điều kiện thực tế có thể thay đổi — hãy xác nhận trước khi khởi hành.",
+    footer: {
+      disclaimer: "Trang này là dự án cẩm nang thông tin cho du khách độc lập, phi lợi nhuận; không trực thuộc bất kỳ cơ quan nhà nước, tổ chức chính thức hoặc đơn vị vận hành thương mại nào.",
+      sources: "Thông tin được đối chiếu từ Cổng Thông tin điện tử thành phố Đà Nẵng, cơ quan du lịch Đà Nẵng / Trung tâm Xúc tiến Du lịch Đà Nẵng và tài liệu công khai của Cục Du lịch Quốc gia Việt Nam; không bao gồm khuyến nghị thương mại.",
+      image: "Bản quyền hình ảnh thuộc về các nhiếp ảnh gia và chủ sở hữu gốc. Ảnh được sử dụng với mục đích minh họa thông tin, không hàm ý chứng thực.",
+      copy: "© 2026 Cẩm nang Chợ Hàn. Bảo lưu mọi quyền.",
+      links: [["/chinh-sach-rieng-tu/", "Quyền riêng tư"], ["/dieu-khoan-su-dung/", "Điều khoản"], ["/tuy-chon-cookie/", "Tùy chọn cookie"]],
+    },
+  },
+  en: {
+    locale: "en_US",
+    htmlLang: "en",
+    siteName: "Han Market Guide",
+    shortName: "Han Market",
+    route: "/en/",
+    alternate: "/",
+    alternateLabel: "VI",
+    nav: [["#story", "Story"], ["#explore", "Explore"], ["#plan", "Plan"], ["#getting-here", "Getting here"], ["#map", "Map"]],
+    meta: { title: "Han Market, Da Nang | Independent visitor guide", description: "A non-profit English guide to Han Market: reference hours, transport, facilities, market areas and practical visitor notes." },
+    hero: { eyebrow: "Independent guide · Da Nang", title: "Find the market’s everyday rhythm.", lead: "Han Market brings together daily trade, central Vietnamese flavours and colourful aisles a short walk from the Han River.", primary: "Plan a market visit", secondary: "Open the map", fact: "Address · Trần Phú" },
+    quick: [["Location", "119 Trần Phú, Hải Châu"], ["Reference hours", "Daily · 06:00–19:00"], ["Entry", "No market admission fee"], ["Suggested time", "Around 1–2 hours"]],
+    story: { eyebrow: "01 · Context", title: "A trading rhythm beside the Han River.", body: ["Public travel references trace Han Market’s beginnings to informal riverside trading in the 1940s. The space grew with central Da Nang and was rebuilt as a two-storey market in the late twentieth century.", "Today, it remains a place for everyday shopping as well as a stop for visitors observing local urban life. Treat it as a working community space: move unhurriedly, ask prices clearly, and respect vendors while they serve customers."], ticketTitle: "Source note", ticket: "Historic milestones and scale are cross-checked against public travel sources. Conditions on the ground may change; this guide does not replace notices issued by market management." },
+    journey: { eyebrow: "02 · Follow the aisles", title: "A deliberate way to look around.", intro: "A good visit does not require a purchase. These three pauses help you experience the market at a comfortable pace.", steps: [["01", "Look and orient", "Start at the façade, note your entrance, then take a short circuit to understand the types of goods before you decide to buy."], ["02", "Read with your senses", "Food, dried goods and regional specialities offer a window into central Vietnamese flavours; leave reasonable room around counters in service."], ["03", "Choose and exchange", "When buying, ask about price, unit, label and packing before agreeing. A calm, polite exchange is part of the market experience."]] },
+    floors: { eyebrow: "03 · Inside the market", title: "Follow categories, not shopping pressure.", intro: "Layouts and stalls may change. When you arrive, on-site signs and market staff should be treated as the priority reference.", cards: [["Lower level", "Food & regional specialities", "You may find fresh foods, dried goods, seafood, condiments, packaged gifts and food counters. Check labels, use-by information and storage requirements before carrying food onward."], ["Upper level", "Textiles & everyday goods", "This level commonly includes fabrics, clothing, accessories, household goods and souvenirs. For tailoring or made-to-order items, agree the delivery timing and specifications before committing."]] },
+    photoQuote: "A market is not only a place to buy — it is a cross-section of Da Nang’s urban life.",
+    photoLabel: "Illustrative photo: an interior market setting · see copyright note at the foot of this page",
+    practical: { eyebrow: "04 · Practical notes", title: "Small details for an easier market visit.", intro: "Facilities and operations can vary. If you need support, ask market staff or the person in charge when you arrive.", rows: [["Entry & spending", "Public guides describe no admission charge. Any cost depends on your own choices; ask for the price, unit and a receipt if required."], ["Parking", "Motorbike parking areas may be available on streets around the market. Capacity and charges vary, so confirm the entrance, fee and collection time on site."], ["Toilets & access", "Ask for signs or staff directions to toilets, routes and accessibility support at the time of your visit. Do not assume a fixed location or level of service."], ["Food & drink", "Market food and drinks may be available. If you have allergies or dietary requirements, ask about ingredients and preparation before choosing."], ["Shop thoughtfully", "Compare before buying, inspect packaging and dates, and only take food onward when you can store it safely during the rest of your journey."]] },
+    transport: { eyebrow: "05 · Getting here", title: "Arrive from the airport, city centre or active bus routes.", cards: [["From the airport", "Da Nang International Airport", "A taxi or app-booked ride is a direct option when travelling with luggage. Enter 119 Trần Phú precisely and check the best drop-off point for the local traffic flow."], ["Across the city", "Walk · taxi · motorbike", "From central districts and the west bank of the Han River, walking can work in comfortable weather. Taxis and app-based rides are more practical for small groups, luggage or heat and rain."], ["By bus", "Check live public routes", "Urban bus routes, diversions and frequency can change. Use an official public-transport channel or a live journey planner to choose a stop near Trần Phú, Bạch Đằng or Hùng Vương."]], note: "No fixed route numbers, fares or travel times are stated here because they can change. Check weather, traffic and local notices before leaving." },
+    map: { eyebrow: "06 · Location", title: "From map pin to the right entrance.", copy: "The map below shows a reference location for Han Market. Near the market, prioritise street signs and follow the local traffic flow.", addressLabel: "Recorded address" },
+    nearby: { eyebrow: "07 · Continue nearby", title: "Stay close to the Han River’s rhythm.", intro: "The following are place types and public settings, not commercial recommendations for any specific business.", cards: [["Sightseeing", "Han River bridge & waterfront", "The riverside is suitable for a walk, views and continuing a central-city visit after the market."], ["Urban heritage", "Churches & central architecture", "Nearby streets include religious and historic architecture. Respect opening hours, dress guidance and the everyday use of these places."], ["Neutral food choices", "Market counters & local food types", "You may encounter noodles, cakes, drinks and packaged foods. Assess hygiene, ingredients and your dietary needs rather than relying on advertising."], ["Stay", "Central-area accommodation", "The city centre includes hotels, guesthouses and serviced apartments. Choose based on budget, access needs and your own itinerary."], ["Everyday essentials", "Convenience shops & supermarkets", "Essential retail formats are available in the central area. Verify hours directly instead of assuming every option stays open late."], ["Lower-impact travel", "Fuel & EV charging", "Fuel and charging availability can change. Use a real-time transport map to find active public facilities or service points."]] },
+    faq: { eyebrow: "08 · Frequently asked questions", title: "A few clear answers before you go.", items: [["When is Han Market open?", "Several public travel references give roughly 06:00–19:00 daily as a reference window. Some stalls may begin closing earlier, so confirm on site if your plans depend on a particular time."], ["Is there an entry ticket?", "Public guides state that there is no market admission fee. Any spending is for products or services you choose; agree the price before buying."], ["How long should I allow?", "Around 1–2 hours is usually enough for a look around, a snack, or a small purchase. Allow more time for tailoring or a particular item, including questions and checks."], ["Are there parking and toilets?", "Some motorbike parking may be found close to the market, but capacity, charges and entry routes vary. Ask staff about toilets and accessibility facilities rather than relying on old information."], ["Can I negotiate a price?", "Asking and comparing prices is common in a market setting. Keep any negotiation respectful, avoid interrupting service, and continue only when both sides are comfortable."]] },
+    sourceNote: "This guide cross-checks public tourism material and Da Nang references. Opening hours, transport, facilities and on-the-ground conditions can change — verify before travelling.",
+    footer: { disclaimer: "This is an independent, non-profit visitor information guide. It is not affiliated with any government body, official organisation or commercial operator.", sources: "Information is cross-checked against public materials from the Da Nang City Electronic Information Portal, Da Nang tourism bodies / the Da Nang Tourism Promotion Center, and the Vietnam National Authority of Tourism. No commercial recommendation is included.", image: "Image rights and copyright remain with the original photographers and rights holders. Images are used for informational illustration and do not imply endorsement.", copy: "© 2026 Han Market Guide. All rights reserved.", links: [["/en/privacy-policy/", "Privacy"], ["/en/terms-of-use/", "Terms"], ["/en/cookie-settings/", "Cookie settings"]] },
+  },
+} as const;
+
+export const policies = {
+  "chinh-sach-rieng-tu": { lang: "vi", kind: "privacy" },
+  "dieu-khoan-su-dung": { lang: "vi", kind: "terms" },
+  "tuy-chon-cookie": { lang: "vi", kind: "cookies" },
+  "en/privacy-policy": { lang: "en", kind: "privacy" },
+  "en/terms-of-use": { lang: "en", kind: "terms" },
+  "en/cookie-settings": { lang: "en", kind: "cookies" },
+} as const;

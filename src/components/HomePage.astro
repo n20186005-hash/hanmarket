@@ -1,0 +1,50 @@
+---
+// River-market editorial style: an asymmetric, river-like sequence alternates paper tickets, guide rails, real photography and essential travel detail.
+import { market, text, type Language } from "../data/content";
+const { lang } = Astro.props as { lang: Language };
+const c = text[lang];
+const isVi = lang === "vi";
+const ids = isVi ? { story: "cau-chuyen", explore: "kham-pha", plan: "chuan-bi", getting: "di-chuyen", map: "ban-do" } : { story: "story", explore: "explore", plan: "plan", getting: "getting-here", map: "map" };
+const attraction = {
+  "@context": "https://schema.org",
+  "@type": ["TouristAttraction", "LocalBusiness"],
+  name: isVi ? "Chợ Hàn" : "Han Market",
+  alternateName: isVi ? "Han Market" : "Chợ Hàn",
+  description: c.meta.description,
+  address: { "@type": "PostalAddress", streetAddress: "119 Trần Phú", addressLocality: "Hải Châu", addressRegion: "Đà Nẵng", postalCode: "550000", addressCountry: "VN" },
+  geo: { "@type": "GeoCoordinates", latitude: market.geo.latitude, longitude: market.geo.longitude },
+  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "06:00", closes: "19:00" }],
+  aggregateRating: { "@type": "AggregateRating", ratingValue: market.rating.value, reviewCount: market.rating.count, bestRating: "5" },
+};
+const faq = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: c.faq.items.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) };
+---
+<section class="hero" aria-labelledby="hero-title">
+  <img class="hero-photo" src="/images/han-market-exterior.jpg" alt={isVi ? "Mặt tiền Chợ Hàn ở Đà Nẵng" : "Han Market façade in Da Nang"} width="720" height="405" />
+  <div class="wrap"><div class="hero-copy"><p class="eyebrow">{c.hero.eyebrow}</p><h1 class="display" id="hero-title">{c.hero.title}</h1><p class="hero-lead">{c.hero.lead}</p><div class="hero-actions"><a class="btn btn-primary" href={`#${ids.plan}`}>{c.hero.primary}</a><a class="btn btn-outline" href={`#${ids.map}`}>{c.hero.secondary}</a></div></div></div>
+  <div class="hero-fact"><b>●</b>{c.hero.fact}</div>
+</section>
+
+<section class="quick-band" aria-label={isVi ? "Thông tin nhanh" : "At a glance"}><div class="wrap quick-grid">{c.quick.map(([label, value]) => <div class="quick-item"><span>{label}</span><strong>{value}</strong></div>)}</div></section>
+
+<section class="rail-section" id={ids.story} aria-labelledby="story-title"><div class="wrap intro-grid"><div><span class="stamp" aria-hidden="true"></span><p class="eyebrow">{c.story.eyebrow}</p><h2 class="display section-title" id="story-title">{c.story.title}</h2></div><div class="section-text">{c.story.body.map((paragraph) => <p>{paragraph}</p>)}<aside class="info-ticket"><strong>{c.story.ticketTitle}</strong><p>{c.story.ticket}</p></aside></div></div></section>
+
+<section class="journey" id={ids.explore} aria-labelledby="journey-title"><div class="wrap"><div class="journey-header"><div><p class="eyebrow">{c.journey.eyebrow}</p><h2 class="display section-title" id="journey-title">{c.journey.title}</h2></div><p>{c.journey.intro}</p></div><div class="step-list">{c.journey.steps.map(([number, title, body]) => <article class="step"><span class="step-no">{number}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div></section>
+
+<section class="floor-layout" aria-labelledby="floor-title"><div class="wrap floor-grid"><div class="floor-copy"><p class="eyebrow">{c.floors.eyebrow}</p><h2 class="display section-title" id="floor-title">{c.floors.title}</h2><p>{c.floors.intro}</p></div><div class="floor-cards">{c.floors.cards.map(([floor, title, body], index) => <article class="floor-card" data-floor={floor}><span class="card-mark" aria-hidden="true">0{index + 1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div></section>
+
+<section class="photo-slice" aria-label={isVi ? "Không gian chợ" : "Market atmosphere"}><img src="/images/han-market-interior.jpg" alt={isVi ? "Lối đi và quầy hàng bên trong Chợ Hàn" : "Aisle and stalls inside Han Market"} width="1024" height="683" /><div class="wrap"><div class="quote-box"><p>{c.photoQuote}</p><span>{c.photoLabel}</span></div></div></section>
+
+<section class="practical" id={ids.plan} aria-labelledby="practical-title"><div class="wrap"><div class="practical-top"><div><p class="eyebrow">{c.practical.eyebrow}</p><h2 class="display section-title" id="practical-title">{c.practical.title}</h2></div><p>{c.practical.intro}</p></div><div class="practical-list">{c.practical.rows.map(([title, body], index) => <article class="practical-row"><h3>{title}</h3><p>{body}</p><span class="index">0{index + 1}</span></article>)}</div></div></section>
+
+<section class="access" id={ids.getting} aria-labelledby="transport-title"><div class="wrap"><p class="eyebrow">{c.transport.eyebrow}</p><h2 class="display" id="transport-title">{c.transport.title}</h2><div class="transport-grid">{c.transport.cards.map(([tiny, title, body]) => <article class="transport-card"><span class="tiny">{tiny}</span><h3>{title}</h3><p>{body}</p></article>)}</div><p class="access-note">{c.transport.note}</p></div></section>
+
+<section class="map-section" id={ids.map} aria-labelledby="map-title"><div class="wrap map-layout"><div><p class="eyebrow">{c.map.eyebrow}</p><h2 class="display section-title" id="map-title">{c.map.title}</h2><p>{c.map.copy}</p><div class="map-address"><strong>{c.map.addressLabel}</strong><p>{market.address}</p></div></div><div class="map-frame"><iframe title={isVi ? "Bản đồ Chợ Hàn" : "Han Market map"} src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13658.433792998583!2d108.21447164945633!3d16.06827473844429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31421832397ecc0d%3A0x90b24f8b8cb2873f!2sHan%20Market!5e1!3m2!1svi!2s!4v1787621670388!5m2!1svi!2s" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div></div></section>
+
+<section class="nearby" aria-labelledby="nearby-title"><div class="wrap"><div class="nearby-intro"><div><p class="eyebrow">{c.nearby.eyebrow}</p><h2 class="display section-title" id="nearby-title">{c.nearby.title}</h2></div><p>{c.nearby.intro}</p></div><div class="nearby-grid">{c.nearby.cards.map(([tag, title, body]) => <article class="nearby-card"><span>{tag}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div></section>
+
+<section class="faq" aria-labelledby="faq-title"><div class="wrap faq-layout"><div><p class="eyebrow">{c.faq.eyebrow}</p><h2 class="display section-title" id="faq-title">{c.faq.title}</h2></div><div class="faq-list">{c.faq.items.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
+
+<aside class="source-note"><div class="wrap"><span aria-hidden="true">i</span><p>{c.sourceNote} <a href="https://danangfantasticity.com/en/local-markets/han-market-2" target="_blank" rel="noreferrer">Danang Fantasticity</a> · <a href="https://visitdanang.travel/en/what-is-special-about-han-market-da-nang-that-everyone-wants-to-visit-once-5555" target="_blank" rel="noreferrer">Visit Da Nang</a> · <a href="https://www.vietnamairlines.com/id/en/plan-book/travel/travel-guide/da-nang-han-market" target="_blank" rel="noreferrer">Vietnam Airlines Travel Guide</a>.</p></div></aside>
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(attraction)} />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(faq)} />

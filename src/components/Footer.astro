@@ -1,0 +1,23 @@
+---
+// River-market editorial style: a sober indigo footer communicates independence, sources and image rights without commercial promotion.
+import { text, type Language } from "../data/content";
+const { lang } = Astro.props as { lang: Language };
+const c = text[lang].footer;
+const home = text[lang].route;
+---
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="footer-brand" href={home}><img src="/favicon.svg" alt="" width="53" height="53" /><strong>{lang === "vi" ? "Cẩm nang Chợ Hàn" : "Han Market Guide"}</strong></a>
+        <p class="disclaimer">{c.disclaimer}</p>
+        <p class="footer-sources">{c.sources}</p>
+        <p class="footer-sources">{c.image}</p>
+      </div>
+      <nav class="footer-links" aria-label={lang === "vi" ? "Liên kết pháp lý" : "Legal links"}>
+        {c.links.map(([href, label]) => <a href={href}>{label}</a>)}
+      </nav>
+    </div>
+    <div class="footer-bottom"><span>{c.copy}</span><span>{lang === "vi" ? "Đà Nẵng · Việt Nam" : "Da Nang · Vietnam"}</span></div>
+  </div>
+</footer>

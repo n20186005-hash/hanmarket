@@ -1,0 +1,32 @@
+---
+// River-market editorial style: privacy controls stay direct and legible, using the same paper-and-ink material language as the guide.
+import type { Language } from "../data/content";
+const { lang } = Astro.props as { lang: Language };
+const isVi = lang === "vi";
+const labels = isVi ? {
+  required: "Cookie cần thiết", requiredText: "Cần cho các chức năng cơ bản của trang và không thể tắt.", analytics: "Cookie phân tích", analyticsText: "Cho phép Google Analytics thu thập dữ liệu sử dụng ẩn danh để hiểu cách mọi người dùng cẩm nang.", preferences: "Cookie tùy chọn", preferencesText: "Lưu lựa chọn ngôn ngữ và thiết lập đồng ý của bạn trên thiết bị này.", save: "Lưu tùy chọn", reject: "Từ chối phân tích", done: "Tùy chọn của bạn đã được lưu trên thiết bị này.", active: "Luôn hoạt động"
+} : {
+  required: "Essential cookies", requiredText: "Required for core site functions and cannot be disabled.", analytics: "Analytics cookies", analyticsText: "Allow Google Analytics to collect anonymous usage information so we can understand how the guide is used.", preferences: "Preference cookies", preferencesText: "Store your language choice and consent setting on this device.", save: "Save preferences", reject: "Reject analytics", done: "Your preferences have been saved on this device.", active: "Always active"
+};
+---
+<form class="cookie-form" data-cookie-form>
+  <div class="cookie-option"><div><h3>{labels.required}</h3><p>{labels.requiredText}</p></div><span class="eyebrow">{labels.active}</span></div>
+  <div class="cookie-option"><div><h3>{labels.analytics}</h3><p>{labels.analyticsText}</p></div><label class="switch"><input type="checkbox" name="analytics" /><span aria-hidden="true"></span><span class="sr-only">{labels.analytics}</span></label></div>
+  <div class="cookie-option"><div><h3>{labels.preferences}</h3><p>{labels.preferencesText}</p></div><label class="switch"><input type="checkbox" name="preferences" checked /><span aria-hidden="true"></span><span class="sr-only">{labels.preferences}</span></label></div>
+  <div class="cookie-actions"><button type="submit">{labels.save}</button><button class="secondary" type="button" data-reject>{labels.reject}</button></div>
+  <p class="save-message" role="status" aria-live="polite"></p>
+</form>
+<script is:inline>
+  const form = document.querySelector("[data-cookie-form]");
+  const message = form?.querySelector(".save-message");
+  const analytics = form?.querySelector('input[name="analytics"]');
+  const saved = localStorage.getItem("han-market-analytics-consent");
+  if (analytics && saved === "granted") analytics.checked = true;
+  const save = (granted) => {
+    localStorage.setItem("han-market-analytics-consent", granted ? "granted" : "denied");
+    if (message) message.textContent = document.documentElement.lang === "vi" ? "Tùy chọn của bạn đã được lưu trên thiết bị này." : "Your preferences have been saved on this device.";
+    if (granted) window.location.reload();
+  };
+  form?.addEventListener("submit", (event) => { event.preventDefault(); save(Boolean(analytics?.checked)); });
+  form?.querySelector("[data-reject]")?.addEventListener("click", () => { if (analytics) analytics.checked = false; save(false); });
+</script>
