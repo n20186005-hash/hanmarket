@@ -18,7 +18,7 @@ const content = text[lang];
 const site = Astro.site;
 const absoluteUrl = site ? new URL(path, site).toString() : undefined;
 const alternateUrl = site ? new URL(content.alternate, site).toString() : undefined;
-const socialImage = site ? new URL("/manus-storage/han-market-exterior-source_6d694687.jpg", site).toString() : undefined;
+const socialImage = site ? new URL("/images/han-market-exterior.jpg", site).toString() : undefined;
 const jsonLdItems = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
 ---
 <!doctype html>
@@ -48,6 +48,7 @@ const jsonLdItems = structuredData ? (Array.isArray(structuredData) ? structured
     <meta property="og:description" content={description} />
     {absoluteUrl && <meta property="og:url" content={absoluteUrl} />}
     {socialImage && <meta property="og:image" content={socialImage} />}
+    {socialImage && <meta property="og:image:alt" content={`${content.shortName} in ${lang === "vi" ? "Đà Nẵng" : "Da Nang"}`} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -74,6 +75,13 @@ const jsonLdItems = structuredData ? (Array.isArray(structuredData) ? structured
         gtag("js", new Date());
         gtag("config", "G-HXM22WWPKP", { anonymize_ip: true });
       })();
+    </script>
+    <script is:inline>
+      if (import.meta.env.PROD && "serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch(() => {});
+        });
+      }
     </script>
   </body>
 </html>

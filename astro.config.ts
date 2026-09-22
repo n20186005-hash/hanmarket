@@ -3,7 +3,7 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import path from "node:path";
 
-const site = undefined;
+const site = "https://hanmarket.org";
 
 export default defineConfig({
   site,

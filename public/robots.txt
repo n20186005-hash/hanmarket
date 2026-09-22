@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://hanmarket.org/sitemap-index.xml

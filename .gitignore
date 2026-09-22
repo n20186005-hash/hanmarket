@@ -111,3 +111,10 @@ temp/
 # Manus version file (auto-generated, not part of source)
 client/public/__manus__/version.json
 .project-config.json
+
+# Cloudflare Workers / Astro build artifacts (not uploaded with source)
+.wrangler/
+.dev.vars
+.astro/
+.wrangler-state.json
+miniflare-*.log

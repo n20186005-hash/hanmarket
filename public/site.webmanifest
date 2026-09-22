@@ -1,12 +1,19 @@
 {
   "name": "Chợ Hàn Guide",
   "short_name": "Chợ Hàn",
+  "description": "Independent visitor guide to Han Market (Chợ Hàn) in Da Nang, Vietnam.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F7F1E5",
+  "theme_color": "#1D4051",
+  "categories": ["travel", "tourism"],
   "icons": [
     { "src": "/favicon-16.svg", "sizes": "16x16", "type": "image/svg+xml" },
     { "src": "/favicon-32.svg", "sizes": "32x32", "type": "image/svg+xml" },
-    { "src": "/apple-touch-icon.svg", "sizes": "180x180", "type": "image/svg+xml" }
-  ],
-  "theme_color": "#1D4051",
-  "background_color": "#F7F1E5",
-  "display": "standalone"
+    { "src": "/apple-touch-icon.svg", "sizes": "180x180", "type": "image/svg+xml" },
+    { "src": "/pwa-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/pwa-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
 }

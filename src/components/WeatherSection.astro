@@ -1,0 +1,73 @@
+---
+// Server Component: fetches weather at build time (server-side, cached in module), renders a
+// reference current condition + multi-day forecast. A light client script refreshes from the
+// edge-cached /api/weather route so visitors see near-real-time data.
+import { fetchWeather } from "../lib/weather";
+import { text, type Language } from "../data/content";
+
+const { lang } = Astro.props as { lang: Language };
+const c = text[lang];
+const w = await fetchWeather(lang);
+const sectionId = lang === "vi" ? "thoi-tiet" : "weather";
+---
+<section class="weather" id={sectionId} aria-labelledby="weather-title">
+  <div class="wrap weather-grid">
+    <div class="weather-now">
+      <p class="eyebrow">{c.weather.eyebrow}</p>
+      <h2 class="display section-title" id="weather-title">{c.weather.title}</h2>
+      <p class="weather-copy">{c.weather.copy}</p>
+      <div class="weather-card">
+        <div class="weather-temp"><span id="w-temp">{w.current.tempC}°</span><span class="weather-unit">C</span></div>
+        <div class="weather-desc">
+          <span id="w-desc">{w.current.text}</span>
+          <span class="weather-sub">{lang === "vi" ? "Cảm giác như" : "Feels like"} <span id="w-feels">{w.current.feelsC}°</span></span>
+        </div>
+        <ul class="weather-meta">
+          <li>{lang === "vi" ? "Độ ẩm" : "Humidity"} <b id="w-humidity">{w.current.humidity}%</b></li>
+          <li>{lang === "vi" ? "Gió" : "Wind"} <b id="w-wind">{w.current.windKmh} km/h</b></li>
+          <li>{lang === "vi" ? "Lượng mưa" : "Precip"} <b id="w-precip">{w.current.precipMm} mm</b></li>
+        </ul>
+        <p class="weather-umbrella" id="w-umbrella">{w.current.umbrellaText}</p>
+      </div>
+    </div>
+    <div class="weather-forecast">
+      <p class="weather-updated" id="w-updated">{lang === "vi" ? "Cập nhật" : "Updated"} {w.updatedLabel}</p>
+      <div class="weather-days" id="w-days">
+        {w.daily.map((d) => (
+          <article class="weather-day">
+            <span class="wd-day">{d.weekday}</span>
+            <span class="wd-date">{d.dateLabel}</span>
+            <span class="wd-text">{d.text}</span>
+            <span class="wd-temp"><b>{d.tMax}°</b> / {d.tMin}°</span>
+            <span class="wd-precip">{d.precipProb != null ? `${d.precipProb}%` : "—"}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+<script is:inline>
+  (async () => {
+    var lang = (document.documentElement.lang || "en").indexOf("vi") === 0 ? "vi" : "en";
+    try {
+      var r = await fetch("/api/weather?lang=" + lang);
+      if (!r.ok) return;
+      var w = await r.json();
+      var set = function (id, v) { var el = document.getElementById(id); if (el) el.textContent = v; };
+      set("w-temp", w.current.tempC + "°");
+      set("w-feels", w.current.feelsC + "°");
+      set("w-humidity", w.current.humidity + "%");
+      set("w-wind", w.current.windKmh + " km/h");
+      set("w-precip", w.current.precipMm + " mm");
+      set("w-desc", w.current.text);
+      set("w-umbrella", w.current.umbrellaText);
+      set("w-updated", (lang === "vi" ? "Cập nhật " : "Updated ") + w.updatedLabel);
+      var days = document.getElementById("w-days");
+      if (days && Array.isArray(w.daily)) {
+        days.innerHTML = w.daily.map(function (d) {
+          return '<article class="weather-day"><span class="wd-day">' + d.weekday + '</span><span class="wd-date">' + d.dateLabel + '</span><span class="wd-text">' + d.text + '</span><span class="wd-temp"><b>' + d.tMax + '°</b> / ' + d.tMin + '°</span><span class="wd-precip">' + (d.precipProb != null ? d.precipProb + "%" : "—") + '</span></article>';
+        }).join("");
+      }
+    } catch (e) {}
+  })();
+</script>
