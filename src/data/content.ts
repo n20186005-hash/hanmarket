@@ -29,8 +29,8 @@ export const text = {
       ["#ban-do", "Bản đồ"],
     ],
     meta: {
-      title: "Chợ Hàn Đà Nẵng — Cẩm nang du lịch",
-      description: "Cẩm nang phi lợi nhuận bằng tiếng Việt về Chợ Hàn: giờ tham khảo, đường đi, tiện ích, khu vực mua sắm và những lưu ý thiết thực.",
+      title: "Chợ Hàn Đà Nẵng: Giờ mở cửa, Bản đồ & Cẩm nang du lịch",
+      description: "Chợ Hàn (Đà Nẵng) mở cửa hằng ngày 06:00–19:00 tại 119 Trần Phú, Hải Châu. Giờ tham khảo, đường đi, tiện ích và lưu ý cho du khách.",
     },
     hero: {
       eyebrow: "Cẩm nang độc lập · Đà Nẵng",
@@ -227,7 +227,7 @@ export const text = {
     alternate: "/",
     alternateLabel: "VI",
     nav: [["#story", "Story"], ["#explore", "Explore"], ["#services", "Services"], ["#getting-here", "Getting here"], ["#weather", "Weather"], ["#map", "Map"]],
-    meta: { title: "Han Market Da Nang — Travel Guide", description: "A non-profit English guide to Han Market: reference hours, transport, facilities, market areas and practical visitor notes." },
+    meta: { title: "Han Market Da Nang: Opening Hours, Map & Visitor Guide", description: "Han Market (Chợ Hàn) in Da Nang is open daily 06:00–19:00 at 119 Trần Phú, Hải Châu. Reference hours, transport, facilities and visitor tips." },
     hero: { eyebrow: "Independent guide · Da Nang", title: "Find the market’s everyday rhythm.", lead: "Han Market brings together daily trade, central Vietnamese flavours and colourful aisles a short walk from the Han River.", primary: "Plan a market visit", secondary: "Open the map", fact: "Address · Trần Phú" },
     quick: [["Location", "119 Trần Phú, Hải Châu"], ["Reference hours", "Daily · 06:00–19:00"], ["Entry", "No market admission fee"], ["Suggested time", "Around 1–2 hours"]],
     story: { eyebrow: "01 · Context", title: "A trading rhythm beside the Han River.", body: ["Public travel references trace Han Market’s beginnings to informal riverside trading in the 1940s. The space grew with central Da Nang and was rebuilt as a two-storey market in the late twentieth century.", "Today, it remains a place for everyday shopping as well as a stop for visitors observing local urban life. Treat it as a working community space: move unhurriedly, ask prices clearly, and respect vendors while they serve customers."], ticketTitle: "Source note", ticket: "Historic milestones and scale are cross-checked against public travel sources. Conditions on the ground may change; this guide does not replace notices issued by market management." },

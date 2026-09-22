@@ -335,3 +335,21 @@ button, input { font: inherit; }
   .services-grid, .plans-grid, .itineraries-grid, .responsibility-grid, .transport-detail-list { grid-template-columns: 1fr; }
   .weather-grid, .weather-days { grid-template-columns: 1fr; }
 }
+
+/* Weather — visitor advice */
+.weather-advice { margin-top: clamp(28px,5vw,48px); }
+.advice-risk { display: block; margin: 0 0 22px; padding: 16px 18px; background: rgba(242,176,142,.16); border: 1px solid rgba(242,176,142,.5); border-left: 4px solid #f2b08e; }
+.advice-risk[hidden] { display: none; }
+.advice-risk strong { display: block; margin-bottom: 6px; color: #ffd9c2; font: 700 .74rem var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.advice-risk ul { margin: 0; padding-left: 18px; }
+.advice-risk li { color: #ffe3d2; font-size: .9rem; }
+.advice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.advice-col { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); padding: 18px; }
+.advice-col[hidden] { display: none; }
+.advice-col h3 { margin: 0 0 10px; color: #f2b08e; font: 700 .72rem var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.advice-col ul { margin: 0; padding-left: 16px; }
+.advice-col li { color: rgba(255,255,255,.9); font-size: .88rem; margin: 5px 0; }
+
+@media (max-width: 840px) {
+  .advice-grid { grid-template-columns: 1fr; }
+}

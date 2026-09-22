@@ -2,7 +2,9 @@
 // River-market editorial style: English is a complete alternate reading path, never a mixed-language overlay.
 import MainLayout from "../../layouts/MainLayout.astro";
 import HomePage from "../../components/HomePage.astro";
+import { buildSchemas } from "../../lib/schema";
 import { text } from "../../data/content";
 const c = text.en;
+const schemas = buildSchemas("en", Astro.site?.toString());
 ---
-<MainLayout lang="en" title={c.meta.title} description={c.meta.description} path="/en/"><HomePage lang="en" /></MainLayout>
+<MainLayout lang="en" title={c.meta.title} description={c.meta.description} path="/en/" structuredData={schemas}><HomePage lang="en" /></MainLayout>

@@ -6,26 +6,6 @@ const { lang } = Astro.props as { lang: Language };
 const c = text[lang];
 const isVi = lang === "vi";
 const ids = isVi ? { story: "cau-chuyen", heritage: "lich-su", explore: "kham-pha", plan: "chuan-bi", services: "dich-vu", getting: "di-chuyen", map: "ban-do", weather: "thoi-tiet", nearby: "gan-da", seasonal: "mua", plans: "lich-trinh", itineraries: "go-y", responsibility: "trach-nhiem" } : { story: "story", heritage: "heritage", explore: "explore", plan: "plan", services: "services", getting: "getting-here", map: "map", weather: "weather", nearby: "nearby", seasonal: "seasons", plans: "plans", itineraries: "itineraries", responsibility: "responsibility" };
-const siteUrl = (Astro.site?.toString() || "https://hanmarket.org").replace(/\/$/, "");
-const pageUrl = siteUrl + (isVi ? "/" : "/en/");
-const attraction = {
-  "@context": "https://schema.org",
-  "@type": ["TouristAttraction", "LocalBusiness"],
-  "@id": `${siteUrl}/#attraction`,
-  name: isVi ? "Chợ Hàn" : "Han Market",
-  alternateName: isVi ? ["Han Market", "Đà Nẵng Chợ Hàn"] : ["Chợ Hàn", "Da Nang Han Market"],
-  description: c.meta.description,
-  url: pageUrl,
-  image: [`${siteUrl}/images/han-market-exterior.jpg`, `${siteUrl}/images/han-market-interior.jpg`, `${siteUrl}/images/han-river.jpg`],
-  isAccessibleForFree: true,
-  address: { "@type": "PostalAddress", streetAddress: "119 Trần Phú", addressLocality: "Hải Châu", addressRegion: "Đà Nẵng", postalCode: "550000", addressCountry: "VN" },
-  geo: { "@type": "GeoCoordinates", latitude: market.geo.latitude, longitude: market.geo.longitude },
-  hasMap: market.mapsShareUrl,
-  openingHoursSpecification: [{ "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], opens: "06:00", closes: "19:00" }],
-  aggregateRating: { "@type": "AggregateRating", ratingValue: market.rating.value, reviewCount: market.rating.count, bestRating: "5" },
-  sameAs: [market.mapsShareUrl, market.govTourismUrl],
-};
-const faq = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: c.faq.items.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) };
 ---
 <section class="hero" aria-labelledby="hero-title">
   <img class="hero-photo" src="/images/han-market-exterior.jpg" alt={isVi ? "Mặt tiền Chợ Hàn ở Đà Nẵng" : "Han Market façade in Da Nang"} width="720" height="405" />
@@ -69,6 +49,3 @@ const faq = { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: 
 <section class="faq" aria-labelledby="faq-title"><div class="wrap faq-layout"><div><p class="eyebrow">{c.faq.eyebrow}</p><h2 class="display section-title" id="faq-title">{c.faq.title}</h2></div><div class="faq-list">{c.faq.items.map(([question, answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
 
 <aside class="source-note" aria-labelledby="source-title"><div class="wrap"><span aria-hidden="true">i</span><div class="source-body"><p class="source-label" id="source-title">{isVi ? "Nguồn tham khảo" : "Reference sources"}</p><p>{c.sourceNote}</p><ul class="source-list"><li><a href="https://danangfantasticity.com/en/local-markets/han-market-2" target="_blank" rel="noreferrer">Danang Fantasticity</a></li><li><a href="https://visitdanang.travel/en/what-is-special-about-han-market-da-nang-that-everyone-wants-to-visit-once-5555" target="_blank" rel="noreferrer">Visit Da Nang</a></li><li><a href="https://www.vietnamairlines.com/id/en/plan-book/travel/travel-guide/da-nang-han-market" target="_blank" rel="noreferrer">Vietnam Airlines Travel Guide</a></li><li><a href={market.govTourismUrl} target="_blank" rel="noopener noreferrer">{isVi ? "Cổng Thông tin Du lịch Quốc gia Việt Nam" : "Vietnam National Authority of Tourism"}</a></li></ul></div></div></aside>
-
-<script is:inline type="application/ld+json" set:html={JSON.stringify(attraction)} />
-<script is:inline type="application/ld+json" set:html={JSON.stringify(faq)} />

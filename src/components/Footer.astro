@@ -1,6 +1,6 @@
 ---
 // River-market editorial style: a sober indigo footer communicates independence, sources and image rights without commercial promotion.
-import { text, type Language } from "../data/content";
+import { text, market, type Language } from "../data/content";
 const { lang } = Astro.props as { lang: Language };
 const c = text[lang].footer;
 const home = text[lang].route;
@@ -13,6 +13,9 @@ const home = text[lang].route;
         <p class="disclaimer">{c.disclaimer}</p>
         <p class="footer-sources">{c.sources}</p>
         <p class="footer-sources">{c.image}</p>
+        <p class="footer-sources">
+          <a href={market.govTourismUrl} target="_blank" rel="noopener noreferrer">{lang === "vi" ? "Cục Du lịch Quốc gia Việt Nam ↗" : "Vietnam National Authority of Tourism ↗"}</a>
+        </p>
       </div>
       <nav class="footer-links" aria-label={lang === "vi" ? "Liên kết pháp lý" : "Legal links"}>
         {c.links.map(([href, label]) => <a href={href}>{label}</a>)}

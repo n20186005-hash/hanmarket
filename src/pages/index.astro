@@ -2,7 +2,9 @@
 // River-market editorial style: Vietnamese is the local-language default and keeps all primary guide content in Vietnamese.
 import MainLayout from "../layouts/MainLayout.astro";
 import HomePage from "../components/HomePage.astro";
+import { buildSchemas } from "../lib/schema";
 import { text } from "../data/content";
 const c = text.vi;
+const schemas = buildSchemas("vi", Astro.site?.toString());
 ---
-<MainLayout lang="vi" title={c.meta.title} description={c.meta.description} path="/"><HomePage lang="vi" /></MainLayout>
+<MainLayout lang="vi" title={c.meta.title} description={c.meta.description} path="/" structuredData={schemas}><HomePage lang="vi" /></MainLayout>

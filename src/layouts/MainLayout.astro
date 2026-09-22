@@ -41,6 +41,7 @@ const jsonLdItems = structuredData ? (Array.isArray(structuredData) ? structured
     {absoluteUrl && <link rel="canonical" href={absoluteUrl} />}
     {absoluteUrl && <link rel="alternate" hreflang={content.htmlLang} href={absoluteUrl} />}
     {alternateUrl && <link rel="alternate" hreflang={lang === "vi" ? "en" : "vi"} href={alternateUrl} />}
+    {site && <link rel="alternate" hreflang="x-default" href={new URL("/", site).toString()} />}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={content.locale} />
     <meta property="og:site_name" content={content.siteName} />

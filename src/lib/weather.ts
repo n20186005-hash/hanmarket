@@ -5,11 +5,17 @@ type Lang = "vi" | "en";
 
 const OPEN_METEO_URL =
   "https://api.open-meteo.com/v1/forecast?latitude=16.06827&longitude=108.21447" +
-  "&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m" +
-  "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max" +
+  "&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,uv_index" +
+  "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max" +
   "&timezone=Asia%2FHo_Chi_Minh&forecast_days=7";
 
 const RAIN_CODES = [51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99];
+const LIGHT_RAIN = [51, 53, 55, 56, 57, 61, 80, 81];
+const HEAVY_RAIN = [63, 65, 82];
+const THUNDER = [95, 96, 99];
+const FOG = [45, 48];
+const CLEAR = [0, 1];
+const CLOUDY = [2, 3];
 
 const VI_DAY = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
 const EN_DAY = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -24,6 +30,13 @@ export interface DayView {
   precipProb: number | null;
 }
 
+export interface AdviceView {
+  outfit: string[];
+  activity: string[];
+  gear: string[];
+  risk: string[];
+}
+
 export interface WeatherView {
   updatedLabel: string;
   current: {
@@ -32,10 +45,20 @@ export interface WeatherView {
     humidity: number;
     windKmh: number;
     precipMm: number;
+    uv: number;
     text: string;
     umbrella: boolean;
     umbrellaText: string;
   };
+  today: {
+    code: number;
+    tMax: number;
+    tMin: number;
+    precipProb: number | null;
+    windKmh: number;
+    uv: number;
+  };
+  advice: AdviceView;
   daily: DayView[];
   stale: boolean;
 }
@@ -92,6 +115,93 @@ function fmtUpdated(dt: Date, lang: Lang): string {
     : `${EN_MON[dt.getMonth()]} ${dt.getDate()}, ${hm}`;
 }
 
+function windLevel(kmh: number): number {
+  if (kmh < 1) return 0;
+  if (kmh <= 5) return 1;
+  if (kmh <= 11) return 2;
+  if (kmh <= 19) return 3;
+  if (kmh <= 28) return 4;
+  if (kmh <= 38) return 5;
+  if (kmh <= 49) return 6;
+  if (kmh <= 61) return 7;
+  return 8;
+}
+
+// Build visitor-facing, plain-language advice from today's conditions.
+// Returns grouped, de-duplicated tips; the risk group is only populated on severe conditions.
+function buildAdvice(
+  t: { code: number; tMax: number; tMin: number; precipProb: number | null; windKmh: number; uv: number },
+  lang: Lang
+): AdviceView {
+  const T = (vi: string, en: string) => (lang === "vi" ? vi : en);
+  const outfit: string[] = [];
+  const activity: string[] = [];
+  const gear: string[] = [];
+  const risk: string[] = [];
+
+  const prob = t.precipProb ?? 0;
+  const lvl = windLevel(t.windKmh);
+
+  if (prob >= 60) {
+    outfit.push(T("Khả năng mưa cao, nên mang theo ô hoặc áo mưa", "High chance of rain — bring an umbrella or raincoat"));
+    activity.push(T("Ưu tiên khu vực trong nhà; hoãn hoạt động ngoài trời, ven sông và biển", "Prioritise indoor spots; postpone outdoor, riverside and beach plans"));
+    gear.push(T("Ô / áo mưa", "Umbrella / raincoat"));
+  }
+  if (LIGHT_RAIN.includes(t.code)) {
+    activity.push(T("Hoạt động ngoài trời trải nghiệm kém hơn", "Outdoor activities will be less enjoyable"));
+    gear.push(T("Ô gập nhỏ", "A compact umbrella"));
+  }
+  if (HEAVY_RAIN.includes(t.code)) {
+    risk.push(T("Mưa khá lớn, tránh thung lũng và vùng trũng thấp", "Fairly heavy rain — avoid valleys and low-lying areas"));
+    activity.push(T("Không nên chơi ngoài trời; ca nô, cáp treo có thể ngừng hoạt động", "Skip outdoor play; boats and cable cars may stop"));
+    gear.push(T("Áo mưa (gió to không nên dùng ô cán dài)", "Raincoat (avoid a long umbrella in strong wind)"));
+  }
+  if (THUNDER.includes(t.code)) {
+    risk.push(T("Đề phòng sấm sét: không lên núi, không tắm biển, không trú dưới cây; trò chơi nước hầu như đóng cửa", "Lightning risk — no hills, no swimming, no shelter under trees; water rides mostly closed"));
+  }
+  if (t.tMax >= 32) {
+    outfit.push(T("Nhiệt độ cao, tránh ra ngoài lúc giữa trưa", "Hot — avoid going out at midday"));
+    activity.push(T("Rút ngắn thời gian chơi ngoài trời", "Shorten outdoor time"));
+    gear.push(T("Kem chống nắng, đủ nước uống, đồ chống nóng", "Sunscreen, plenty of water, heat protection"));
+  }
+  if (t.tMax >= 35) {
+    risk.push(T("Cảnh báo nắng nóng: ở nơi có bóng râm, đề phòng say nắng", "Heat alert — stay in shade and watch for heatstroke"));
+  }
+  if (t.uv >= 5) {
+    activity.push(T("Tia UV mạnh, chú ý chống nắng", "Strong UV — take sun protection"));
+    gear.push(T("Kem chống nắng, kính râm, mũ che nắng", "Sunscreen, sunglasses, sun hat"));
+  }
+  if (t.tMax - t.tMin > 8) {
+    outfit.push(T("Chênh lệch nhiệt ngày đêm lớn, nên mang một áo khoác mỏng", "Big day–night temperature swing — bring a light jacket"));
+  }
+  if (t.tMax <= 10) {
+    outfit.push(T("Nhiệt độ thấp, giữ ấm", "Low temperature — keep warm"));
+    gear.push(T("Áo ấm, khăn", "Warm jacket, scarf"));
+  }
+  if (lvl >= 5 && lvl <= 6) {
+    outfit.push(T("Gió khá mạnh", "Rather windy"));
+    activity.push(T("Ca nô ven biển, một số trò chơi ngoài trời có thể ngừng hoạt động", "Coastal boats and some outdoor rides may stop"));
+    gear.push(T("Mũ dễ bị thổi bay, không nên mặc váy xòe rộng", "Hats may blow away; avoid loose wide skirts"));
+  }
+  if (lvl >= 7) {
+    risk.push(T("Gió lớn: tránh xa biển đá, bảng hiệu; trò chơi trên biển hầu như đóng cửa", "Strong wind — stay away from rocky coasts and signs; sea activities mostly closed"));
+  }
+  if (CLEAR.includes(t.code)) {
+    activity.push(T("Trời quang đãng, thích hợp đi chơi ngoài trời và ngắm bình minh/hoàng hôn", "Clear skies — great for outdoors and sunrise/sunset"));
+    gear.push(T("Nhớ chống nắng", "Remember sun protection"));
+  }
+  if (CLOUDY.includes(t.code)) {
+    activity.push(T("Ánh sáng dịu, rất hợp chụp ảnh; không nắng gắt, thích hợp đi bộ lâu", "Soft light, great for photos; good for long walks"));
+  }
+  if (FOG.includes(t.code)) {
+    risk.push(T("Tầm nhìn kém: phà, chuyến bay dễ chậm; không thích hợp ngắm cảnh biển/núi", "Poor visibility — ferries/flights may delay; not good for sea/mountain views"));
+    gear.push(T("Khẩu trang", "A mask"));
+  }
+
+  const uniq = (a: string[]) => Array.from(new Set(a));
+  return { outfit: uniq(outfit), activity: uniq(activity), gear: uniq(gear), risk: uniq(risk) };
+}
+
 function normalize(data: any, lang: Lang): WeatherView {
   const cur = data.current;
   const daily = data.daily;
@@ -109,12 +219,22 @@ function normalize(data: any, lang: Lang): WeatherView {
     humidity: Math.round(Number(cur.relative_humidity_2m)),
     windKmh: Math.round(Number(cur.wind_speed_10m)),
     precipMm: Math.round(precip * 10) / 10,
+    uv: Math.round(Number(cur.uv_index)),
     text: wmoText(code, lang),
     umbrella,
     umbrellaText:
       lang === "vi"
         ? (umbrella ? "Nên mang theo ô" : "Không cần ô")
         : (umbrella ? "Bring an umbrella" : "No umbrella needed"),
+  };
+
+  const today = {
+    code: Number(daily.weather_code[0]),
+    tMax: Math.round(Number(daily.temperature_2m_max[0])),
+    tMin: Math.round(Number(daily.temperature_2m_min[0])),
+    precipProb: probToday != null ? Math.round(Number(probToday)) : null,
+    windKmh: current.windKmh,
+    uv: Math.round(Number(daily.uv_index_max[0])),
   };
 
   const days: DayView[] = (daily.time as string[]).map((d: string, i: number) => {
@@ -135,6 +255,8 @@ function normalize(data: any, lang: Lang): WeatherView {
   return {
     updatedLabel: fmtUpdated(updated, lang),
     current,
+    today,
+    advice: buildAdvice(today, lang),
     daily: days,
     stale: false,
   };
@@ -163,6 +285,14 @@ function makeFallback(lang: Lang): WeatherView {
       precipProb: s.p,
     };
   });
+  const todayCond = {
+    code: samples[0].code,
+    tMax: samples[0].tMax,
+    tMin: samples[0].tMin,
+    precipProb: samples[0].p,
+    windKmh: 12,
+    uv: 7,
+  };
   return {
     updatedLabel: fmtUpdated(today, lang),
     current: {
@@ -171,10 +301,13 @@ function makeFallback(lang: Lang): WeatherView {
       humidity: 70,
       windKmh: 12,
       precipMm: 0,
+      uv: 7,
       text: wmoText(0, lang),
       umbrella: false,
       umbrellaText: lang === "vi" ? "Không cần ô" : "No umbrella needed",
     },
+    today: todayCond,
+    advice: buildAdvice(todayCond, lang),
     daily: days,
     stale: true,
   };

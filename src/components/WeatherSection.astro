@@ -1,7 +1,8 @@
 ---
 // Server Component: fetches weather at build time (server-side, cached in module), renders a
-// reference current condition + multi-day forecast. A light client script refreshes from the
-// edge-cached /api/weather route so visitors see near-real-time data.
+// reference current condition + multi-day forecast plus plain-language visitor advice.
+// A light client script refreshes from the edge-cached /api/weather route so visitors see
+// near-real-time data without seeing any API/key details.
 import { fetchWeather } from "../lib/weather";
 import { text, type Language } from "../data/content";
 
@@ -9,56 +10,81 @@ const { lang } = Astro.props as { lang: Language };
 const c = text[lang];
 const w = await fetchWeather(lang);
 const sectionId = lang === "vi" ? "thoi-tiet" : "weather";
+const riskHidden = w.advice.risk.length === 0;
 ---
 <section class="weather" id={sectionId} aria-labelledby="weather-title">
-  <div class="wrap weather-grid">
-    <div class="weather-now">
-      <p class="eyebrow">{c.weather.eyebrow}</p>
-      <h2 class="display section-title" id="weather-title">{c.weather.title}</h2>
-      <p class="weather-copy">{c.weather.copy}</p>
-      <div class="weather-card">
-        <div class="weather-temp"><span id="w-temp">{w.current.tempC}°</span><span class="weather-unit">C</span></div>
-        <div class="weather-desc">
-          <span id="w-desc">{w.current.text}</span>
-          <span class="weather-sub">{lang === "vi" ? "Cảm giác như" : "Feels like"} <span id="w-feels">{w.current.feelsC}°</span></span>
+  <div class="wrap">
+    <div class="weather-grid">
+      <div class="weather-now">
+        <p class="eyebrow">{c.weather.eyebrow}</p>
+        <h2 class="display section-title" id="weather-title">{c.weather.title}</h2>
+        <p class="weather-copy">{c.weather.copy}</p>
+        <div class="weather-card">
+          <div class="weather-temp"><span id="w-temp">{w.current.tempC}°</span><span class="weather-unit">C</span></div>
+          <div class="weather-desc">
+            <span id="w-desc">{w.current.text}</span>
+            <span class="weather-sub">{lang === "vi" ? "Cảm giác như" : "Feels like"} <span id="w-feels">{w.current.feelsC}°</span></span>
+          </div>
+          <ul class="weather-meta">
+            <li>{lang === "vi" ? "Độ ẩm" : "Humidity"} <b id="w-humidity">{w.current.humidity}%</b></li>
+            <li>{lang === "vi" ? "Gió" : "Wind"} <b id="w-wind">{w.current.windKmh} km/h</b></li>
+            <li>{lang === "vi" ? "Lượng mưa" : "Precip"} <b id="w-precip">{w.current.precipMm} mm</b></li>
+            <li>UV <b id="w-uv">{w.current.uv}</b></li>
+          </ul>
+          <p class="weather-umbrella" id="w-umbrella">{w.current.umbrellaText}</p>
         </div>
-        <ul class="weather-meta">
-          <li>{lang === "vi" ? "Độ ẩm" : "Humidity"} <b id="w-humidity">{w.current.humidity}%</b></li>
-          <li>{lang === "vi" ? "Gió" : "Wind"} <b id="w-wind">{w.current.windKmh} km/h</b></li>
-          <li>{lang === "vi" ? "Lượng mưa" : "Precip"} <b id="w-precip">{w.current.precipMm} mm</b></li>
-        </ul>
-        <p class="weather-umbrella" id="w-umbrella">{w.current.umbrellaText}</p>
+      </div>
+      <div class="weather-forecast">
+        <p class="weather-updated" id="w-updated">{lang === "vi" ? "Cập nhật" : "Updated"} {w.updatedLabel}</p>
+        <div class="weather-days" id="w-days">
+          {w.daily.map((d) => (
+            <article class="weather-day">
+              <span class="wd-day">{d.weekday}</span>
+              <span class="wd-date">{d.dateLabel}</span>
+              <span class="wd-text">{d.text}</span>
+              <span class="wd-temp"><b>{d.tMax}°</b> / {d.tMin}°</span>
+              <span class="wd-precip">{d.precipProb != null ? `${d.precipProb}%` : "—"}</span>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
-    <div class="weather-forecast">
-      <p class="weather-updated" id="w-updated">{lang === "vi" ? "Cập nhật" : "Updated"} {w.updatedLabel}</p>
-      <div class="weather-days" id="w-days">
-        {w.daily.map((d) => (
-          <article class="weather-day">
-            <span class="wd-day">{d.weekday}</span>
-            <span class="wd-date">{d.dateLabel}</span>
-            <span class="wd-text">{d.text}</span>
-            <span class="wd-temp"><b>{d.tMax}°</b> / {d.tMin}°</span>
-            <span class="wd-precip">{d.precipProb != null ? `${d.precipProb}%` : "—"}</span>
-          </article>
-        ))}
+
+    <div class="weather-advice">
+      <div class="advice-risk" id="w-risk" hidden={riskHidden}>
+        <strong>{lang === "vi" ? "⚠ Lưu ý rủi ro" : "⚠ Risk notice"}</strong>
+        <ul id="w-risk-list">{w.advice.risk.map((t) => <li>{t}</li>)}</ul>
+      </div>
+      <div class="advice-grid">
+        <div class="advice-col" id="col-outfit" hidden={w.advice.outfit.length === 0}>
+          <h3>{lang === "vi" ? "Đi lại & trang phục" : "Getting around & outfit"}</h3>
+          <ul id="w-outfit">{w.advice.outfit.map((t) => <li>{t}</li>)}</ul>
+        </div>
+        <div class="advice-col" id="col-activity" hidden={w.advice.activity.length === 0}>
+          <h3>{lang === "vi" ? "Sắp xếp chơi" : "What to do"}</h3>
+          <ul id="w-activity">{w.advice.activity.map((t) => <li>{t}</li>)}</ul>
+        </div>
+        <div class="advice-col" id="col-gear" hidden={w.advice.gear.length === 0}>
+          <h3>{lang === "vi" ? "Mang theo" : "Bring along"}</h3>
+          <ul id="w-gear">{w.advice.gear.map((t) => <li>{t}</li>)}</ul>
+        </div>
       </div>
     </div>
   </div>
 </section>
 <script is:inline>
-  (async () => {
+  (function () {
     var lang = (document.documentElement.lang || "en").indexOf("vi") === 0 ? "vi" : "en";
-    try {
-      var r = await fetch("/api/weather?lang=" + lang);
-      if (!r.ok) return;
-      var w = await r.json();
-      var set = function (id, v) { var el = document.getElementById(id); if (el) el.textContent = v; };
+    function set(id, v) { var el = document.getElementById(id); if (el) el.textContent = v; }
+    function fill(id, arr) { var el = document.getElementById(id); if (el && Array.isArray(arr)) el.innerHTML = arr.map(function (t) { return "<li>" + t + "</li>"; }).join(""); }
+    function toggle(colId, listId, arr) { var col = document.getElementById(colId), list = document.getElementById(listId); if (col) col.hidden = !(arr && arr.length); if (list) fill(listId, arr); }
+    fetch("/api/weather?lang=" + lang).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (w) {
       set("w-temp", w.current.tempC + "°");
       set("w-feels", w.current.feelsC + "°");
       set("w-humidity", w.current.humidity + "%");
       set("w-wind", w.current.windKmh + " km/h");
       set("w-precip", w.current.precipMm + " mm");
+      set("w-uv", w.current.uv);
       set("w-desc", w.current.text);
       set("w-umbrella", w.current.umbrellaText);
       set("w-updated", (lang === "vi" ? "Cập nhật " : "Updated ") + w.updatedLabel);
@@ -68,6 +94,12 @@ const sectionId = lang === "vi" ? "thoi-tiet" : "weather";
           return '<article class="weather-day"><span class="wd-day">' + d.weekday + '</span><span class="wd-date">' + d.dateLabel + '</span><span class="wd-text">' + d.text + '</span><span class="wd-temp"><b>' + d.tMax + '°</b> / ' + d.tMin + '°</span><span class="wd-precip">' + (d.precipProb != null ? d.precipProb + "%" : "—") + '</span></article>';
         }).join("");
       }
-    } catch (e) {}
+      toggle("col-outfit", "w-outfit", w.advice.outfit);
+      toggle("col-activity", "w-activity", w.advice.activity);
+      toggle("col-gear", "w-gear", w.advice.gear);
+      var riskWrap = document.getElementById("w-risk"), riskList = document.getElementById("w-risk-list");
+      if (riskWrap) riskWrap.hidden = !(w.advice.risk && w.advice.risk.length);
+      if (riskList) fill("w-risk-list", w.advice.risk);
+    }).catch(function (e) {});
   })();
 </script>
