@@ -7,8 +7,9 @@ const site = "https://hanmarket.org";
 
 export default defineConfig({
   site,
+  trailingSlash: "always",
   publicDir: path.resolve(import.meta.dirname, "public"),
-  integrations: site ? [sitemap()] : [],
+  integrations: site ? [sitemap({ filter: (page) => !page.endsWith("/404/") })] : [],
   vite: {
     plugins: [tailwindcss()],
     server: {

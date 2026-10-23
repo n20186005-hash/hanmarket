@@ -1,11 +1,11 @@
 // Server-side weather for Han Market (Da Nang) via Open-Meteo (no API key required).
-// Used by the WeatherSection Server Component at build time and by the /api/weather worker route.
+// Requested only through the native /api/weather Worker route.
 
 type Lang = "vi" | "en";
 
 const OPEN_METEO_URL =
-  "https://api.open-meteo.com/v1/forecast?latitude=16.06827&longitude=108.21447" +
-  "&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,uv_index" +
+  "https://api.open-meteo.com/v1/forecast?latitude=16.0680836&longitude=108.224069" +
+  "&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m" +
   "&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max" +
   "&timezone=Asia%2FHo_Chi_Minh&forecast_days=7";
 
@@ -109,10 +109,7 @@ function dateLabel(dt: Date, lang: Lang): string {
 }
 
 function fmtUpdated(dt: Date, lang: Lang): string {
-  const hm = dt.toTimeString().slice(0, 5);
-  return lang === "vi"
-    ? `${dt.getDate()}/${dt.getMonth() + 1} ${hm}`
-    : `${EN_MON[dt.getMonth()]} ${dt.getDate()}, ${hm}`;
+  return new Intl.DateTimeFormat(lang === "vi" ? "vi-VN" : "en-GB", {timeZone:"Asia/Ho_Chi_Minh",day:"2-digit",month:"short",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(dt);
 }
 
 function windLevel(kmh: number): number {
@@ -153,11 +150,11 @@ function buildAdvice(
   }
   if (HEAVY_RAIN.includes(t.code)) {
     risk.push(T("Mưa khá lớn, tránh thung lũng và vùng trũng thấp", "Fairly heavy rain — avoid valleys and low-lying areas"));
-    activity.push(T("Không nên chơi ngoài trời; ca nô, cáp treo có thể ngừng hoạt động", "Skip outdoor play; boats and cable cars may stop"));
+    activity.push(T("Hoãn đi bộ ngoài trời khi mưa lớn; kiểm tra cảnh báo và chỉ dẫn tại chỗ", "Postpone exposed walks in heavy rain; check warnings and local directions"));
     gear.push(T("Áo mưa (gió to không nên dùng ô cán dài)", "Raincoat (avoid a long umbrella in strong wind)"));
   }
   if (THUNDER.includes(t.code)) {
-    risk.push(T("Đề phòng sấm sét: không lên núi, không tắm biển, không trú dưới cây; trò chơi nước hầu như đóng cửa", "Lightning risk — no hills, no swimming, no shelter under trees; water rides mostly closed"));
+    risk.push(T("Có sấm sét: tìm nơi trú kiên cố, hoãn đi bộ ngoài trời và kiểm tra cảnh báo địa phương", "Lightning risk — seek substantial shelter, postpone exposed walks and check local warnings"));
   }
   if (t.tMax >= 32) {
     outfit.push(T("Nhiệt độ cao, tránh ra ngoài lúc giữa trưa", "Hot — avoid going out at midday"));
@@ -165,7 +162,7 @@ function buildAdvice(
     gear.push(T("Kem chống nắng, đủ nước uống, đồ chống nóng", "Sunscreen, plenty of water, heat protection"));
   }
   if (t.tMax >= 35) {
-    risk.push(T("Cảnh báo nắng nóng: ở nơi có bóng râm, đề phòng say nắng", "Heat alert — stay in shade and watch for heatstroke"));
+    risk.push(T("Nhiệt độ dự báo rất cao: ở nơi có bóng râm, đề phòng say nắng", "Very hot forecast — stay in shade and watch for heatstroke"));
   }
   if (t.uv >= 5) {
     activity.push(T("Tia UV mạnh, chú ý chống nắng", "Strong UV — take sun protection"));
@@ -180,11 +177,11 @@ function buildAdvice(
   }
   if (lvl >= 5 && lvl <= 6) {
     outfit.push(T("Gió khá mạnh", "Rather windy"));
-    activity.push(T("Ca nô ven biển, một số trò chơi ngoài trời có thể ngừng hoạt động", "Coastal boats and some outdoor rides may stop"));
+    activity.push(T("Kiểm tra cảnh báo gió trước khi đi bộ ven sông; giữ lịch trình linh hoạt", "Check wind warnings before riverside walks and keep plans flexible"));
     gear.push(T("Mũ dễ bị thổi bay, không nên mặc váy xòe rộng", "Hats may blow away; avoid loose wide skirts"));
   }
   if (lvl >= 7) {
-    risk.push(T("Gió lớn: tránh xa biển đá, bảng hiệu; trò chơi trên biển hầu như đóng cửa", "Strong wind — stay away from rocky coasts and signs; sea activities mostly closed"));
+    risk.push(T("Gió lớn: tránh cây và bảng hiệu, hoãn đi bộ ngoài trời và theo dõi thông báo địa phương", "Strong wind — avoid trees and signs, postpone exposed walks and check local notices"));
   }
   if (CLEAR.includes(t.code)) {
     activity.push(T("Trời quang đãng, thích hợp đi chơi ngoài trời và ngắm bình minh/hoàng hôn", "Clear skies — great for outdoors and sunrise/sunset"));
@@ -194,7 +191,7 @@ function buildAdvice(
     activity.push(T("Ánh sáng dịu, rất hợp chụp ảnh; không nắng gắt, thích hợp đi bộ lâu", "Soft light, great for photos; good for long walks"));
   }
   if (FOG.includes(t.code)) {
-    risk.push(T("Tầm nhìn kém: phà, chuyến bay dễ chậm; không thích hợp ngắm cảnh biển/núi", "Poor visibility — ferries/flights may delay; not good for sea/mountain views"));
+    risk.push(T("Tầm nhìn kém: thận trọng khi sang đường và kiểm tra điều kiện trước khi đi", "Poor visibility — take care at crossings and check conditions before travelling"));
     gear.push(T("Khẩu trang", "A mask"));
   }
 
@@ -203,6 +200,17 @@ function buildAdvice(
 }
 
 function normalize(data: any, lang: Lang): WeatherView {
+  const c = data?.current, d = data?.daily;
+  const finite = (v: unknown) => typeof v === "number" && Number.isFinite(v);
+  const keys = ["temperature_2m", "apparent_temperature", "relative_humidity_2m", "wind_speed_10m", "precipitation", "weather_code"];
+  if (!c || !d || !keys.every(k => finite(c[k])) || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(c.time ?? "")) throw new Error("Invalid current weather");
+  const timestamp = Date.parse(c.time + "+07:00");
+  if (!Number.isFinite(timestamp) || Math.abs(Date.now() - timestamp) > 6 * 3600000) throw new Error("Outdated current weather");
+  if (!Array.isArray(d.time) || d.time.length < 1 || d.time.length > 7 || !d.time.every((v: unknown) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v) && Number.isFinite(Date.parse(v)))) throw new Error("Invalid forecast dates");
+  for (const key of ["weather_code", "temperature_2m_max", "temperature_2m_min", "precipitation_probability_max", "uv_index_max"]) {
+    if (!Array.isArray(d[key]) || d[key].length !== d.time.length || !d[key].every(finite)) throw new Error("Incomplete forecast");
+  }
+  if (c.relative_humidity_2m < 0 || c.relative_humidity_2m > 100 || c.precipitation < 0 || c.wind_speed_10m < 0 || d.precipitation_probability_max.some((n: number) => n < 0 || n > 100)) throw new Error("Invalid weather range");
   const cur = data.current;
   const daily = data.daily;
   const code = Number(cur.weather_code);
@@ -219,13 +227,13 @@ function normalize(data: any, lang: Lang): WeatherView {
     humidity: Math.round(Number(cur.relative_humidity_2m)),
     windKmh: Math.round(Number(cur.wind_speed_10m)),
     precipMm: Math.round(precip * 10) / 10,
-    uv: Math.round(Number(cur.uv_index)),
+    uv: Math.round(Number(daily.uv_index_max[0])),
     text: wmoText(code, lang),
     umbrella,
     umbrellaText:
       lang === "vi"
-        ? (umbrella ? "Nên mang theo ô" : "Không cần ô")
-        : (umbrella ? "Bring an umbrella" : "No umbrella needed"),
+        ? (umbrella ? "Nên mang theo ô" : "Kiểm tra dự báo trước khi ra ngoài")
+        : (umbrella ? "Bring an umbrella" : "Check the forecast before heading out"),
   };
 
   const today = {
@@ -250,7 +258,7 @@ function normalize(data: any, lang: Lang): WeatherView {
     };
   });
 
-  const updated = new Date(String(cur.time).replace(" ", "T"));
+  const updated = new Date(String(cur.time) + "+07:00");
 
   return {
     updatedLabel: fmtUpdated(updated, lang),
@@ -262,57 +270,6 @@ function normalize(data: any, lang: Lang): WeatherView {
   };
 }
 
-function makeFallback(lang: Lang): WeatherView {
-  const today = new Date();
-  const samples = [
-    { code: 0, tMax: 31, tMin: 24, p: 10 },
-    { code: 2, tMax: 32, tMin: 25, p: 20 },
-    { code: 3, tMax: 30, tMin: 25, p: 30 },
-    { code: 61, tMax: 29, tMin: 24, p: 70 },
-    { code: 2, tMax: 31, tMin: 24, p: 20 },
-    { code: 0, tMax: 33, tMin: 25, p: 5 },
-    { code: 1, tMax: 32, tMin: 25, p: 15 },
-  ];
-  const days: DayView[] = samples.map((s, i) => {
-    const dt = new Date(today);
-    dt.setDate(today.getDate() + i);
-    return {
-      weekday: weekday(dt, lang),
-      dateLabel: dateLabel(dt, lang),
-      text: wmoText(s.code, lang),
-      tMax: s.tMax,
-      tMin: s.tMin,
-      precipProb: s.p,
-    };
-  });
-  const todayCond = {
-    code: samples[0].code,
-    tMax: samples[0].tMax,
-    tMin: samples[0].tMin,
-    precipProb: samples[0].p,
-    windKmh: 12,
-    uv: 7,
-  };
-  return {
-    updatedLabel: fmtUpdated(today, lang),
-    current: {
-      tempC: 30,
-      feelsC: 33,
-      humidity: 70,
-      windKmh: 12,
-      precipMm: 0,
-      uv: 7,
-      text: wmoText(0, lang),
-      umbrella: false,
-      umbrellaText: lang === "vi" ? "Không cần ô" : "No umbrella needed",
-    },
-    today: todayCond,
-    advice: buildAdvice(todayCond, lang),
-    daily: days,
-    stale: true,
-  };
-}
-
 let cache: { ts: number; lang: Lang; data: WeatherView } | null = null;
 
 export async function fetchWeather(lang: Lang): Promise<WeatherView> {
@@ -320,8 +277,7 @@ export async function fetchWeather(lang: Lang): Promise<WeatherView> {
   if (cache && cache.lang === lang && now - cache.ts < 30 * 60 * 1000) {
     return cache.data;
   }
-  try {
-    const res = await fetch(OPEN_METEO_URL, {
+  const res = await fetch(OPEN_METEO_URL, {
       signal: AbortSignal.timeout(5000),
       headers: { "User-Agent": "hanmarket-guide/1.0" },
     });
@@ -330,9 +286,4 @@ export async function fetchWeather(lang: Lang): Promise<WeatherView> {
     const view = normalize(data, lang);
     cache = { ts: now, lang, data: view };
     return view;
-  } catch {
-    const view = makeFallback(lang);
-    cache = { ts: now, lang, data: view };
-    return view;
-  }
 }

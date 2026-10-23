@@ -1,53 +1,124 @@
 ---
-// River-market editorial style: legal pages use a quiet reading-column layout, retaining the guide’s indigo paper and editorial hierarchy.
-import type { Language } from "../data/content";
 import CookiePreferences from "./CookiePreferences.astro";
-
-interface Props { lang: Language; kind: "privacy" | "terms" | "cookies"; }
-const { lang, kind } = Astro.props as Props;
-const isVi = lang === "vi";
-const values = isVi ? {
-  privacy: { kicker: "Pháp lý · 01", title: "Chính sách riêng tư", intro: "Cập nhật lần cuối: Tháng 8 năm 2026", sections: [
-    ["Phạm vi", "Cẩm nang Chợ Hàn là một dự án thông tin phi lợi nhuận. Chính sách này giải thích cách website xử lý lượng dữ liệu tối thiểu cần thiết để vận hành, cải thiện nội dung và trả lời yêu cầu tự nguyện từ bạn."],
-    ["Thông tin có thể được thu thập", "Khi bạn truy cập website, hạ tầng và các dịch vụ được đồng ý có thể xử lý dữ liệu kỹ thuật như địa chỉ IP, loại trình duyệt, trang đã truy cập, thời điểm truy cập và các thiết lập cookie. Nếu bạn chủ động liên hệ, thông tin bạn gửi có thể được dùng để phản hồi yêu cầu đó."],
-    ["Cách sử dụng", "Dữ liệu tối thiểu được dùng để duy trì an toàn kỹ thuật, hiểu xu hướng sử dụng ở mức tổng hợp, cải thiện khả năng đọc của nội dung và đáp ứng các nghĩa vụ pháp lý áp dụng. Website không bán dữ liệu cá nhân và không xây dựng hồ sơ quảng cáo cá nhân hóa."],
-    ["Dịch vụ bên thứ ba", "Bản đồ nhúng do Google Maps cung cấp để hiển thị vị trí. Google Analytics chỉ được tải khi bạn chọn bật cookie phân tích trong phần tùy chọn cookie. Các dịch vụ này có chính sách riêng; việc tải chúng có thể khiến nhà cung cấp xử lý dữ liệu theo chính sách của họ."],
-    ["Quyền của bạn", "Tùy nơi bạn sinh sống và luật áp dụng, bạn có thể có quyền yêu cầu truy cập, chỉnh sửa, xóa, hạn chế hoặc phản đối việc xử lý dữ liệu cá nhân; bạn cũng có thể khiếu nại với cơ quan giám sát phù hợp. Lựa chọn cookie có thể thay đổi bằng cách trở lại trang Tùy chọn cookie."],
-    ["Thay đổi chính sách", "Chúng tôi có thể cập nhật văn bản này khi cách vận hành website thay đổi. Phiên bản đang đăng sẽ là phiên bản áp dụng cho việc sử dụng sau thời điểm cập nhật."],
-  ] },
-  terms: { kicker: "Pháp lý · 02", title: "Điều khoản sử dụng", intro: "Cập nhật lần cuối: Tháng 8 năm 2026", sections: [
-    ["Chấp nhận điều khoản", "Khi sử dụng Cẩm nang Chợ Hàn, bạn đồng ý sử dụng thông tin theo các điều khoản này. Nếu không đồng ý, vui lòng không tiếp tục sử dụng website."],
-    ["Mục đích thông tin", "Nội dung chỉ nhằm cung cấp thông tin tham khảo về điểm đến. Đây là một website du lịch độc lập của bên thứ ba, không liên kết với Chợ Hàn, cơ quan nhà nước, tổ chức chính thức hay bất kỳ đơn vị vận hành thương mại nào."],
-    ["Tính chính xác", "Chúng tôi cố gắng đối chiếu nguồn công khai và trình bày thông tin thận trọng, nhưng không cam kết mọi nội dung luôn đầy đủ, chính xác hoặc cập nhật. Giờ mở cửa, giao thông, điều kiện, tiện ích và dịch vụ có thể thay đổi. Hãy luôn xác minh thông tin quan trọng qua kênh chính thức trước khi đi."],
-    ["Sử dụng nội dung", "Thiết kế và nội dung biên soạn gốc được bảo vệ theo quy định về quyền sở hữu trí tuệ áp dụng. Hình ảnh thuộc quyền của tác giả hoặc chủ sở hữu gốc; dữ liệu Google Maps được sử dụng theo điều khoản của Google. Không sao chép hoặc sử dụng lại nội dung vượt quá phạm vi được pháp luật cho phép mà không có sự cho phép phù hợp."],
-    ["Giới hạn trách nhiệm", "Website được cung cấp theo hiện trạng và không có bảo đảm. Trong phạm vi pháp luật cho phép, dự án không chịu trách nhiệm đối với tổn thất phát sinh từ việc sử dụng, không thể sử dụng hoặc dựa vào thông tin trên website, bao gồm quyết định đi lại hoặc mua sắm của bạn."],
-  ] },
-  cookies: { kicker: "Pháp lý · 03", title: "Tùy chọn cookie", intro: "Cập nhật lần cuối: Tháng 8 năm 2026", sections: [
-    ["Cách website dùng cookie", "Cookie là tệp nhỏ được lưu trong trình duyệt để ghi nhớ lựa chọn hoặc hỗ trợ hoạt động của website. Website dùng lượng cookie tối thiểu nhằm duy trì tùy chọn đồng ý và, nếu bạn cho phép, đo lường việc sử dụng ở mức ẩn danh."],
-    ["Kiểm soát của bạn", "Cookie cần thiết luôn hoạt động để ghi nhớ trạng thái lựa chọn. Cookie phân tích là tùy chọn và bị tắt cho đến khi bạn cho phép. Website không thiết lập cookie quảng cáo cá nhân hóa hoặc chạy công nghệ tiếp thị cho mục đích quảng cáo."],
-  ] },
-} : {
-  privacy: { kicker: "Legal · 01", title: "Privacy policy", intro: "Last updated: August 2026", sections: [
-    ["Scope", "Han Market Guide is a non-profit information project. This policy explains how the website handles the minimum data needed to operate, improve its information and respond to a request that you choose to send."],
-    ["Information that may be collected", "When you visit, site infrastructure and consented services may process technical data such as IP address, browser type, visited pages, visit time and cookie settings. If you voluntarily contact us, information you provide may be used to respond to that request."],
-    ["How it is used", "Minimum data is used to maintain technical safety, understand aggregate usage patterns, improve readability and meet applicable legal obligations. This website does not sell personal data or create personalised advertising profiles."],
-    ["Third-party services", "Google Maps supplies the embedded map used to show the location. Google Analytics loads only after you opt in to analytics cookies in the cookie settings. These services have their own policies, and loading them may allow the provider to process data under those policies."],
-    ["Your rights", "Depending on where you live and applicable law, you may have rights to request access, correction, deletion, restriction or objection to personal-data processing, and to complain to an appropriate supervisory authority. You can change cookie choices by returning to Cookie settings."],
-    ["Policy changes", "We may update this text when site operations change. The version published here applies to use after the stated update."],
-  ] },
-  terms: { kicker: "Legal · 02", title: "Terms of use", intro: "Last updated: August 2026", sections: [
-    ["Acceptance", "By using Han Market Guide, you agree to use its information under these terms. If you do not agree, please do not continue to use the website."],
-    ["Informational purpose", "Content is provided for destination information only. This is an independent third-party travel-information website and is not affiliated with Han Market, any government body, official organisation or commercial operator."],
-    ["Accuracy", "We aim to cross-check public sources and present information carefully, but do not guarantee that all content is complete, accurate or current. Opening hours, transport, conditions, facilities and services can change. Verify important information through official channels before travelling."],
-    ["Content use", "Original design and editorial content are protected by applicable intellectual-property laws. Images remain the property of their original photographers or rights holders, and Google Maps data is used under Google’s terms. Do not copy or reuse content beyond what law permits without appropriate permission."],
-    ["Limitation of liability", "The website is provided as is, without warranties. To the extent permitted by law, the project is not responsible for loss arising from use of, inability to use, or reliance on website information, including your travel or purchasing decisions."],
-  ] },
-  cookies: { kicker: "Legal · 03", title: "Cookie settings", intro: "Last updated: August 2026", sections: [
-    ["How this website uses cookies", "Cookies are small files stored in a browser to remember a choice or support site operation. This website uses the minimum cookies needed to retain consent preferences and, only with permission, measure use in an anonymised way."],
-    ["Your control", "Essential cookies remain active to remember the consent state. Analytics cookies are optional and remain off until you allow them. This website does not set personalised advertising cookies or run marketing technology for advertising purposes."],
-  ] },
-};
-const page = values[kind];
+import type { Language } from "../data/content";
+const {lang,kind} = Astro.props as {lang:Language;kind:"privacy"|"terms"|"cookies"};
+const values = {
+  "vi": {
+    "privacy": {
+      "title": "Chính sách riêng tư",
+      "sections": [
+        [
+          "Phạm vi",
+          "Đây là cẩm nang du lịch độc lập của bên thứ ba. Trang không có biểu mẫu liên hệ, tài khoản người dùng hoặc chức năng đặt hàng."
+        ],
+        [
+          "Hạ tầng & dịch vụ bên ngoài",
+          "Cloudflare cung cấp hạ tầng website. Bản đồ nhúng Google Maps và phông chữ Google Fonts có thể nhận địa chỉ IP, thông tin trình duyệt và dữ liệu yêu cầu khi được tải, kể cả khi phân tích bị tắt."
+        ],
+        [
+          "Google Analytics tùy chọn",
+          "Google Analytics (G-HXM22WWPKP) chỉ tải sau khi bạn bật phân tích. Dịch vụ có thể xử lý định danh cookie và dữ liệu sử dụng; không nên coi dữ liệu này là hoàn toàn ẩn danh. Bạn có thể từ chối hoặc rút lựa chọn trên trang tùy chọn phân tích."
+        ],
+        [
+          "Bộ nhớ trên thiết bị",
+          "Lựa chọn phân tích được lưu bằng localStorage. Khi rút lựa chọn, trang tắt đo lường tiếp theo và xóa cookie Analytics có thể truy cập ở đường dẫn gốc; thao tác này không xóa dữ liệu đã gửi trước đó. Service worker lưu đệm ảnh và biểu tượng, không lưu API thời tiết hoặc trang điều hướng."
+        ]
+      ]
+    },
+    "terms": {
+      "title": "Điều khoản sử dụng",
+      "sections": [
+        [
+          "Mục đích",
+          "Cẩm nang cung cấp thông tin tham khảo, không phải thông báo của ban quản lý Chợ Hàn hoặc cơ quan du lịch."
+        ],
+        [
+          "Xác minh trước chuyến đi",
+          "Giờ tham khảo được ghi kèm nguồn và ngày. Giờ quầy, giá, giao thông và tiện ích có thể thay đổi. Dùng thông báo tại chợ hoặc nhà cung cấp để xác minh các chi tiết quan trọng."
+        ],
+        [
+          "Thời tiết & liên kết",
+          "Dự báo thời tiết là dữ liệu mô hình, không phải cảnh báo khẩn cấp hoặc xác nhận đóng mở chợ. Liên kết bên ngoài có điều khoản và chính sách riêng."
+        ],
+        [
+          "Ảnh & nội dung",
+          "Nguồn, tác giả và giấy phép từng ảnh được ghi ở chân trang. Các ảnh Daderot được cung cấp theo CC0 1.0; xem bản gốc và điều khoản giấy phép trước khi dùng lại."
+        ]
+      ]
+    },
+    "cookies": {
+      "title": "Tùy chọn phân tích",
+      "sections": [
+        [
+          "Lựa chọn trên thiết bị này",
+          "Phân tích tắt cho đến khi bạn bật. Lựa chọn áp dụng cho trình duyệt này; nếu xóa bộ nhớ hoặc dùng thiết bị khác, bạn cần chọn lại. Không có tùy chọn ngôn ngữ được lưu."
+        ],
+        [
+          "Rút lựa chọn",
+          "Bỏ chọn phân tích rồi lưu, hoặc dùng nút từ chối. Rút lựa chọn tắt đo lường tiếp theo nhưng không xóa dữ liệu đã gửi. Lựa chọn phân tích không tắt bản đồ Google hoặc phông chữ bên ngoài."
+        ]
+      ]
+    }
+  },
+  "en": {
+    "privacy": {
+      "title": "Privacy policy",
+      "sections": [
+        [
+          "Scope",
+          "This independent third-party visitor guide has no contact form, user accounts or ordering function."
+        ],
+        [
+          "Infrastructure & external services",
+          "Cloudflare hosts the site. Embedded Google Maps and Google Fonts may receive your IP address, browser information and request data when loaded, including when analytics is off."
+        ],
+        [
+          "Optional Google Analytics",
+          "Google Analytics (G-HXM22WWPKP) loads after you enable analytics. It may process cookie identifiers and usage information; this should not be described as fully anonymous. Reject or withdraw your choice on the analytics settings page."
+        ],
+        [
+          "Device storage",
+          "Your analytics choice is stored in localStorage. Withdrawal disables further measurement and clears accessible Analytics cookies at the root path; it does not erase data already sent. The service worker caches images and icons, rather than weather API responses or page navigations."
+        ]
+      ]
+    },
+    "terms": {
+      "title": "Terms of use",
+      "sections": [
+        [
+          "Purpose",
+          "This guide provides visitor information, rather than notices issued by Han Market management or the tourism authority."
+        ],
+        [
+          "Check before travelling",
+          "Reference hours are accompanied by their source and date. Stall schedules, prices, transport and facilities can change. Confirm important details through notices at the market or with the relevant provider."
+        ],
+        [
+          "Weather & links",
+          "Weather is model data, rather than an emergency warning or confirmation of market closures. External links have their own terms and policies."
+        ],
+        [
+          "Photographs & content",
+          "The footer identifies each photograph’s source, author and licence. Daderot’s photographs are provided under CC0 1.0; consult the originals and licence terms when reusing them."
+        ]
+      ]
+    },
+    "cookies": {
+      "title": "Analytics settings",
+      "sections": [
+        [
+          "Your choice on this device",
+          "Analytics is off until you enable it. The choice applies to this browser; clearing storage or using another device requires a new choice. No language preference is stored."
+        ],
+        [
+          "Withdrawing",
+          "Uncheck analytics and save, or use Reject analytics. Withdrawal disables further measurement but does not erase data already sent. The analytics choice does not disable Google Maps or external fonts."
+        ]
+      ]
+    }
+  }
+} as const;
+const page = values[lang][kind];
 ---
-<section class="policy-hero"><div class="wrap"><p class="eyebrow">{page.kicker}</p><h1 class="display">{page.title}</h1></div></section>
-<article class="wrap policy-body"><aside class="policy-aside">{page.intro}</aside><div class="policy-content">{page.sections.map(([heading, body]) => <section><h2>{heading}</h2><p>{body}</p></section>)}{kind === "cookies" && <CookiePreferences lang={lang} />}</div></article>
+<section class="policy-hero"><div class="wrap"><p class="eyebrow">{lang === "vi" ? "Thông tin website" : "Website information"}</p><h1 class="display">{page.title}</h1></div></section>
+<article class="wrap policy-body"><aside class="policy-aside">{lang === "vi" ? "Cập nhật: 23/10/2026" : "Updated: 23 October 2026"}</aside><div class="policy-content">{page.sections.map(([heading,body])=><section><h2>{heading}</h2><p>{body}</p></section>)}{(kind === "privacy" || kind === "cookies") && <section><h2>Cloudflare Web Analytics (RUM)</h2><p>{lang === "vi" ? "Hạ tầng website có beacon hiệu năng Cloudflare, độc lập với Google Analytics. Lựa chọn phân tích ở đây chỉ điều khiển tích hợp Google Analytics của trang, không điều khiển beacon của hạ tầng. Việc có mã script không xác nhận rằng dữ liệu đo lường đã được gửi trong một lượt truy cập cụ thể." : "The hosting service includes a Cloudflare performance beacon, separate from Google Analytics. This analytics choice controls the site’s Google Analytics integration, not the hosting beacon. The presence of its script does not confirm that metrics were sent during a particular visit."} <a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/">{lang === "vi" ? "Tài liệu Cloudflare về thu thập dữ liệu" : "Cloudflare documentation on data collection"}</a>.</p></section>}<p><a href={lang === "vi" ? "/tuy-chon-cookie/" : "/en/cookie-settings/"}>{lang === "vi" ? "Quản lý phân tích" : "Manage analytics"}</a> · <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">Google Privacy</a> · <a href="https://www.cloudflare.com/privacypolicy/" rel="noopener noreferrer" target="_blank">Cloudflare Privacy</a></p>{kind === "cookies" && <CookiePreferences lang={lang} />}</div></article>

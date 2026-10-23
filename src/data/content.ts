@@ -1,335 +1,322 @@
-// River-market editorial style: each language is a complete, self-contained local guide; content never interleaves languages.
 export type Language = "vi" | "en";
-
 export const market = {
-  address: "119 Trần Phú, phường Hải Châu, thành phố Đà Nẵng, Việt Nam",
-  geo: { latitude: 16.06827473844429, longitude: 108.21447164945633 },
-  rating: { value: "3.9", count: 45337 },
-  hours: "06:00–19:00",
-  mapsShareUrl: "https://maps.app.goo.gl/hZiJQXNHcySsUXM19",
-  govTourismUrl: "https://vietnamtourism.gov.vn/",
-  nearbyLandmarks: { vi: ["Cầu sông Hàn", "Bờ sông Hàn"], en: ["Han River Bridge", "Han River waterfront"] },
-};
-
-export const text = {
-  vi: {
-    locale: "vi_VN",
-    htmlLang: "vi",
-    siteName: "Chợ Hàn Đà Nẵng — Cẩm nang du lịch",
-    shortName: "Chợ Hàn",
-    route: "/",
-    alternate: "/en/",
-    alternateLabel: "EN",
-    nav: [
-      ["#cau-chuyen", "Câu chuyện"],
-      ["#kham-pha", "Khám phá"],
-      ["#dich-vu", "Dịch vụ"],
-      ["#di-chuyen", "Di chuyển"],
-      ["#thoi-tiet", "Thời tiết"],
-      ["#ban-do", "Bản đồ"],
-    ],
-    meta: {
-      title: "Chợ Hàn Đà Nẵng: Giờ mở cửa, Bản đồ & Cẩm nang du lịch",
-      description: "Chợ Hàn (Đà Nẵng) mở cửa hằng ngày 06:00–19:00 tại 119 Trần Phú, Hải Châu. Giờ tham khảo, đường đi, tiện ích và lưu ý cho du khách.",
-    },
-    hero: {
-      eyebrow: "Cẩm nang độc lập · Đà Nẵng",
-      title: "Đi theo nhịp buổi sáng của chợ.",
-      lead: "Chợ Hàn là điểm gặp gỡ giữa nhịp mua bán thường ngày, hương vị miền Trung và những lối đi đầy màu sắc ngay bên sông Hàn.",
-      primary: "Lập kế hoạch ghé chợ",
-      secondary: "Mở bản đồ",
-      fact: "Địa chỉ · Trần Phú",
-    },
-    quick: [
-      ["Vị trí", "119 Trần Phú, Hải Châu"],
-      ["Giờ tham khảo", "Mỗi ngày · 06:00–19:00"],
-      ["Vé vào cửa", "Không thu vé vào chợ"],
-      ["Thời lượng", "Khoảng 1–2 giờ"],
-    ],
-    story: {
-      eyebrow: "01 · Bối cảnh",
-      title: "Một nhịp giao thương bên sông Hàn.",
-      body: [
-        "Theo các tài liệu du lịch công khai, hoạt động buôn bán tự phát ven sông Hàn đã hình thành nền tảng cho Chợ Hàn từ thập niên 1940. Không gian này lớn dần cùng trung tâm Đà Nẵng và được xây dựng lại thành khu chợ hai tầng vào giai đoạn cuối thế kỷ XX.",
-        "Hôm nay, chợ vẫn là nơi người dân mua những thứ thiết yếu, đồng thời là một điểm dừng để du khách quan sát nhịp sống bản địa. Hãy xem đây là một không gian sinh hoạt — đi chậm, hỏi giá rõ ràng và tôn trọng hoạt động của người bán.",
-      ],
-      ticketTitle: "Ghi chú nguồn",
-      ticket: "Các mốc lịch sử và quy mô được đối chiếu từ nguồn du lịch công khai. Thông tin thực địa có thể thay đổi; hướng dẫn này không thay thế thông báo của ban quản lý chợ.",
-    },
-    journey: {
-      eyebrow: "02 · Đi theo lối chợ",
-      title: "Một vòng tham quan có chủ đích.",
-      intro: "Không cần mua gì để có một trải nghiệm tốt. Ba điểm dừng sau giúp bạn cảm nhận chợ theo nhịp vừa phải.",
-      steps: [
-        ["01", "Nhìn và định hướng", "Bắt đầu từ mặt tiền, ghi nhớ lối vào và đi một vòng ngắn để nhận biết nhóm hàng trước khi chọn mua."],
-        ["02", "Đọc bằng giác quan", "Khu thực phẩm, đồ khô và đặc sản gợi mở hương vị miền Trung; giữ khoảng cách hợp lý với quầy đang phục vụ."],
-        ["03", "Chọn và trao đổi", "Nếu mua hàng, hỏi giá, đơn vị tính, nhãn và điều kiện đóng gói trước khi đồng ý; trao đổi nhẹ nhàng là một phần của trải nghiệm."],
-      ],
-    },
-    floors: {
-      eyebrow: "03 · Không gian",
-      title: "Đi theo nhóm hàng, không theo áp lực mua sắm.",
-      intro: "Sơ đồ và cách bố trí có thể thay đổi theo từng quầy. Hãy xem biển chỉ dẫn tại chợ là thông tin ưu tiên khi bạn đến nơi.",
-      cards: [
-        ["Tầng dưới", "Thực phẩm & đặc sản", "Thường gặp nhóm thực phẩm tươi, thực phẩm khô, hải sản, gia vị, quà tặng đóng gói và quầy ăn. Kiểm tra nhãn, hạn dùng và điều kiện bảo quản trước khi mang đi xa."],
-        ["Tầng trên", "Vải vóc & hàng tiêu dùng", "Đây là nơi thường có vải, trang phục, phụ kiện, đồ gia dụng và đồ lưu niệm. Với may đo hoặc sản phẩm theo yêu cầu, hãy thống nhất thời gian giao và chi tiết trước khi đặt."],
-      ],
-    },
-    photoQuote: "Chợ không chỉ để mua — đó là một lát cắt của đời sống đô thị Đà Nẵng.",
-    photoLabel: "Ảnh minh họa: không gian bên trong chợ · xem ghi chú bản quyền ở cuối trang",
-    practical: {
-      eyebrow: "04 · Chuẩn bị thực tế",
-      title: "Những chi tiết giúp chuyến ghé chợ nhẹ nhàng hơn.",
-      intro: "Các tiện ích và tình trạng vận hành có thể thay đổi theo thời điểm. Nếu cần hỗ trợ, hãy hỏi nhân viên hoặc người phụ trách tại chợ.",
-      rows: [
-        ["Vé & chi phí", "Không có vé vào cửa được nêu trong các cẩm nang công khai. Chi phí phát sinh tùy lựa chọn cá nhân; yêu cầu báo giá, đơn vị tính và chứng từ nếu cần."],
-        ["Bãi xe", "Khu vực gửi xe máy có thể có ở những tuyến đường sát chợ. Chỗ trống và mức thu thay đổi; hãy xác nhận lối vào, giá gửi và giờ lấy xe tại chỗ."],
-        ["Vệ sinh & tiếp cận", "Hỏi biển chỉ dẫn hoặc người phụ trách về nhà vệ sinh, lối đi và hỗ trợ tiếp cận tại thời điểm bạn đến. Không nên giả định vị trí hay khả năng phục vụ cố định."],
-        ["Ăn uống", "Khu chợ có thể có quầy đồ ăn và thức uống. Với dị ứng hoặc chế độ ăn riêng, hãy hỏi thành phần, cách chế biến và chọn phần ăn phù hợp."],
-        ["Mua sắm an tâm", "So sánh trước khi mua, xem kỹ bao bì và hạn dùng; chỉ mua thực phẩm mang đi khi bạn có thể bảo quản phù hợp trong hành trình."],
-      ],
-    },
-    transport: {
-      eyebrow: "05 · Đường đến",
-      title: "Đến chợ từ sân bay, trung tâm và các tuyến xe buýt.",
-      cards: [
-        ["Từ sân bay", "Sân bay quốc tế Đà Nẵng", "Đi taxi hoặc xe đặt qua ứng dụng là lựa chọn trực tiếp khi có hành lý. Hãy nhập đúng địa chỉ 119 Trần Phú và kiểm tra điểm trả khách phù hợp với luồng giao thông."],
-        ["Từ thành phố", "Đi bộ · taxi · xe máy", "Từ khu trung tâm và bờ tây sông Hàn, đi bộ là lựa chọn phù hợp nếu thời tiết thuận lợi. Taxi hoặc xe đặt qua ứng dụng tiện hơn cho nhóm nhỏ, hành lý hoặc giờ nóng mưa."],
-        ["Đi xe buýt", "Tra cứu tuyến đang hoạt động", "Các tuyến xe buýt đô thị có thể thay đổi lộ trình và tần suất. Dùng kênh giao thông công cộng chính thức hoặc công cụ hành trình theo thời gian thực để chọn điểm dừng gần Trần Phú, Bạch Đằng hoặc Hùng Vương."],
-      ],
-      note: "Không nêu số tuyến, giá cước hay thời gian di chuyển cố định vì chúng có thể thay đổi. Hãy kiểm tra điều kiện thời tiết, giao thông và thông báo địa phương trước khi đi.",
-    },
-    map: {
-      eyebrow: "06 · Định vị",
-      title: "Từ bản đồ đến lối vào phù hợp.",
-      copy: "Bản đồ dưới đây hiển thị vị trí tham khảo của Chợ Hàn. Khi đến gần, ưu tiên biển báo thực địa và tuân thủ luồng xe quanh chợ.",
-      addressLabel: "Địa chỉ ghi nhận",
-    },
-    nearby: {
-      eyebrow: "07 · Tiếp nối hành trình",
-      title: "Khám phá lân cận, không cần rời xa nhịp sông Hàn.",
-      intro: "Các gợi ý dưới đây là loại hình và không gian công cộng — không phải khuyến nghị thương mại cho bất kỳ đơn vị cụ thể nào.",
-      cards: [
-        ["Tham quan", "Cầu sông Hàn & bờ sông", "Không gian ven sông phù hợp để đi bộ, ngắm cảnh và nối tiếp một vòng tham quan khu trung tâm."],
-        ["Di sản đô thị", "Nhà thờ & kiến trúc trung tâm", "Khu phố lân cận có các công trình tôn giáo và kiến trúc lịch sử. Tôn trọng giờ hoạt động, trang phục và không gian sinh hoạt của địa điểm."],
-        ["Ẩm thực trung tính", "Quầy chợ & loại hình địa phương", "Bạn có thể tìm các nhóm món như mì, bánh, đồ uống hoặc thực phẩm đóng gói. Tự đánh giá vệ sinh, thành phần và nhu cầu dinh dưỡng thay vì dựa trên quảng cáo."],
-        ["Lưu trú", "Chỗ ở khu trung tâm", "Khu vực trung tâm có nhiều loại hình lưu trú như khách sạn, nhà nghỉ và căn hộ dịch vụ. Chọn nơi phù hợp ngân sách, nhu cầu tiếp cận và lịch trình của bạn."],
-        ["Nhu cầu thường ngày", "Cửa hàng tiện ích & siêu thị", "Các loại hình bán lẻ thiết yếu xuất hiện trong khu trung tâm. Kiểm tra giờ hoạt động trực tiếp thay vì giả định tất cả đều mở muộn."],
-        ["Di chuyển bền vững", "Nhiên liệu & sạc điện", "Tình trạng trạm nhiên liệu hoặc điểm sạc có thể thay đổi. Dùng bản đồ giao thông theo thời gian thực để tìm lựa chọn công cộng hoặc điểm dịch vụ đang hoạt động."],
-      ],
-    },
-    faq: {
-      eyebrow: "08 · Câu hỏi thường gặp",
-      title: "Thông tin ngắn gọn trước khi bạn đi.",
-      items: [
-        ["Chợ Hàn mở cửa khi nào?", "Nhiều nguồn du lịch công khai ghi giờ tham khảo khoảng 06:00–19:00 hằng ngày. Một số quầy có thể thu dọn sớm hơn; hãy xác nhận tại chỗ nếu lịch trình của bạn phụ thuộc vào một khung giờ cụ thể."],
-        ["Có cần mua vé để vào chợ không?", "Các cẩm nang công khai nêu rằng không có vé vào cửa. Chi tiêu phụ thuộc vào các sản phẩm hoặc dịch vụ bạn tự chọn; hãy hỏi giá rõ ràng trước khi mua."],
-        ["Nên dành bao lâu ở chợ?", "Khoảng 1–2 giờ thường đủ cho một vòng quan sát, ăn nhẹ hoặc mua một vài món. Nếu bạn dự định may đo hay tìm sản phẩm cụ thể, hãy dành thêm thời gian trao đổi và kiểm tra điều kiện."],
-        ["Có chỗ gửi xe và nhà vệ sinh không?", "Một số khu vực gửi xe máy nằm gần chợ, nhưng chỗ trống, phí và lối vào thay đổi. Về nhà vệ sinh và tiện ích tiếp cận, hãy hỏi nhân viên tại điểm đến thay vì dựa vào thông tin cũ."],
-        ["Có thể mặc cả không?", "Việc hỏi giá và so sánh là bình thường trong môi trường chợ. Mặc cả nên lịch sự, không gây cản trở việc phục vụ và chỉ tiếp tục khi cả hai bên đều thoải mái."],
-      ],
-    },
-    heritage: {
-      eyebrow: "09 · Nguồn gốc & ý nghĩa",
-      title: "Từ chợ ven sông đến nhịp sống đô thị.",
-      body: [
-        "Chợ Hàn hình thành từ những năm 1940 quanh khu vực thương mại ven sông Hàn, khi Đà Nẵng bắt đầu mở rộng về phía đông. Không gian chợ nhiều thập kỷ qua gắn liền với đời sống thường nhật của người dân Hải Châu: mua bán thực phẩm, trao đổi hàng hóa và là điểm gặp gỡ của các khu phố lân cận.",
-        "Đến cuối thế kỷ XX, chợ được xây dựng lại thành công trình hai tầng kiên cố, giữ vai trò là một trong những chợ dân sinh trung tâm của thành phố. Không có huyền thoại chính thức được ghi nhận, nhưng với người địa phương, Chợ Hàn là phần ký ức đô thị: nơi tiếng rao hàng, mùi gia vị miền Trung và ánh đèn sớm tạo nên một nhịp sống riêng.",
-        "Hiểu Chợ Hàn như một không gian sinh hoạt — hơn là một điểm mua sắm — giúp du khách tiếp cận văn hóa bản địa một cách tự nhiên và tôn trọng.",
-      ],
-      noteTitle: "Ghi chú lịch sử",
-      note: "Các mốc thời gian và quy mô được đối chiếu từ tư liệu du lịch công khai và báo chí địa phương. Quy hoạch chợ có thể thay đổi theo từng giai đoạn; vui lòng ưu tiên thông báo tại chỗ.",
-    },
-    services: {
-      eyebrow: "10 · Tiện ích & dịch vụ",
-      title: "Những tiện ích thực tế quanh khu chợ.",
-      intro: "Các thông tin dưới đây mô tả loại hình dịch vụ phổ biến tại khu vực chợ và trung tâm lân cận. Chúng tôi không xếp hạng hay giới thiệu đơn vị cụ thể nào; hãy chọn theo nhu cầu và xác nhận trực tiếp khi đến nơi.",
-      items: [
-        ["Vệ sinh", "Nhà vệ sinh công cộng", "Khu chợ và các tuyến phố lân cận thường có nhà vệ sinh công cộng hoặc tại một số điểm dịch vụ. Vị trí và mức phí có thể thay đổi; hãy hỏi biển chỉ dẫn hoặc người phụ trách tại chỗ."],
-        ["Gửi xe", "Bãi giữ xe máy & ô tô", "Các tuyến đường quanh chợ thường bố trí điểm giữ xe máy; một số tuyến gần đó có bãi đỗ ô tô quy mô nhỏ. Chỗ trống và giá thu thay đổi theo giờ cao điểm."],
-        ["Ăn uống", "Quầy thực phẩm & quán địa phương", "Tầng trệt chợ và vỉa hè lân cận có các quầy ăn, quán cà phê và giải khát. Với nhu cầu ăn kiêng hoặc dị ứng, hãy hỏi thành phần và cách chế biến trước khi chọn."],
-        ["Lưu trú", "Khách sạn & nhà nghỉ", "Khu trung tâm Hải Châu tập trung nhiều loại hình lưu trú từ khách sạn đến căn hộ dịch vụ. Chọn nơi phù hợp ngân sách, khoảng cách đi bộ đến chợ và nhu cầu tiếp cận."],
-        ["Mua sắm tiện lợi", "Cửa hàng tiện lợi & siêu thị", "Các cửa hàng tiện lợi và siêu thị mini xuất hiện dọc trục Trần Phú và các phố lân cận, thuận tiện cho nhu yếu phẩm hoặc đồ dùng du lịch. Kiểm tra giờ mở cửa trực tiếp."],
-        ["Nhiên liệu & sạc", "Trạm xăng & điểm sạc xe điện", "Trạm nhiên liệu và điểm sạc xe điện phân bố rải rác trong trung tâm thành phố. Tình trạng vận hành thay đổi; dùng bản đồ giao thông theo thời gian thực để tìm điểm gần nhất."],
-      ],
-    },
-    transportDetail: {
-      eyebrow: "Cách di chuyển chi tiết",
-      title: "Từ sân bay, xe buýt và taxi đến chợ.",
-      groups: [
-        ["Từ sân bay", "Sân bay quốc tế Đà Nẵng cách chợ khoảng 3 km. Với hành lý, taxi hoặc xe đặt qua ứng dụng là lựa chọn trực tiếp; tài xế thường quen tuyến Trần Phú. Nhập chính xác '119 Trần Phú, Hải Châu' và xác nhận điểm trả khách trước khi lên xe."],
-        ["Xe buýt công cộng", "Các tuyến buýt đô thị đi qua trục Trần Phú, Bạch Đằng hoặc Hùng Vương. Lộ trình và tần suất thay đổi; hãy dùng ứng dụng hành trình của đơn vị vận tải công cộng hoặc bản đồ thời gian thực để chọn điểm dừng gần nhất, sau đó đi bộ vài phút vào chợ."],
-        ["Taxi & xe công nghệ", "Xe taxi truyền thống và các ứng dụng gọi xe đều phủ sóng trung tâm. Nên thống nhất giá qua đồng hồ hoặc ước lượng trên ứng dụng trước khi di chuyển, đặc biệt trong giờ cao điểm hoặc mưa."],
-        ["Đi bộ & thuê xe máy", "Từ bờ tây sông Hàn và khu trung tâm, đi bộ khoảng 10–20 phút là tới chợ nếu thời tiết thuận lợi. Thuê xe máy tự lái phù hợp ai quen giao thông địa phương; luôn đội mũ bảo hiểm và tuân thủ luồng xe."],
-      ],
-    },
-    seasonal: {
-      eyebrow: "11 · Theo mùa",
-      title: "Chiến lược thăm quan theo thời tiết Đà Nẵng.",
-      intro: "Đà Nẵng có mùa khô (thường tháng 1–7) và mùa mưa (thường tháng 8–12, có thể có bão vào tháng 10–11). Bảng dưới tổng hợp theo xu hướng khí hậu nhiều năm để giúp bạn chọn thời điểm và mang theo đồ dùng phù hợp.",
-      caption: "Tổng hợp theo xu hướng khí hậu trung bình nhiều năm tại Đà Nẵng; số liệu thực tế thay đổi theo từng năm.",
-      rows: [
-        ["Mùa khô", "Tháng 1–4", "Nắng đẹp, ít mưa, mát vào sáng sớm", "Rất thuận lợi", "Đi sớm (7–9h) tránh nắng trưa", "Nón, nước uống, kem chống nắng"],
-        ["Đầu mùa mưa", "Tháng 5–7", "Nóng, mưa rào chiều tối bất chợt", "Thuận lợi", "Mang ô gập và đi sớm", "Ô, quần áo nhẹ thấm hút mồ hôi"],
-        ["Giữa mùa mưa", "Tháng 8–9", "Mưa nhiều, đôi khi ngập cục bộ", "Trung bình", "Xem dự báo, tránh giờ mưa lớn", "Ô, dép chống trượt"],
-        ["Cuối mùa mưa & bão", "Tháng 10–12", "Mưa lớn, rủi ro bão, sóng to ven sông", "Cần thận trọng", "Theo dõi cảnh báo, linh hoạt hủy chuyến", "Ô, áo mưa, theo dõi thông báo địa phương"],
-      ],
-    },
-    plans: {
-      eyebrow: "12 · Gợi ý theo nhóm",
-      title: "Ba lộ trình theo nhịp đi của bạn.",
-      intro: "Chọn lộ trình phù hợp với người đi cùng và thể trạng để chuyến thăm nhẹ nhàng, không vội vã.",
-      items: [
-        ["Gia đình có trẻ nhỏ", "Ưu tiên tầng trệt, ghé quầy trái cây và đồ ăn nhẹ, giữ khoảng cách an toàn với khu vực nấu nướng. Nghỉ chân tại góc có ghế, tránh giờ đông vào trưa cuối tuần. Chuẩn bị nước uống và đồ dùng dự phòng.", "Nhịp chậm · an toàn"],
-        ["Người chụp ảnh & thiên nhiên", "Ánh sáng sáng sớm (7–9h) và cuối ngày tạo hình khối đẹp cho kiến trúc chợ và dòng người. Tôn trọng người bán khi chụp chân dung, xin phép trước ống kính. Thử góc máy từ mặt tiền hướng ra sông Hàn.", "Sáng sớm · ánh sáng đẹp"],
-        ["Người lớn tuổi & tiếp cận hạn chế", "Di chuyển bằng mặt phẳng tầng trệt, ghé các quầy gần lối vào. Tránh giờ cao điểm, mang theo người hỗ trợ nếu cần. Hỏi nhân viên về lối đi và nhà vệ sinh gần nhất.", "Tầng trệt · ít bậc thang"],
-      ],
-    },
-    itineraries: {
-      eyebrow: "13 · Lộ trình tham khảo",
-      title: "Gợi ý nửa ngày và cả ngày.",
-      items: [
-        ["Lộ trình nửa ngày", "Khoảng 2–3 giờ", "Đi sớm từ khách sạn → chợ Hàn (tầng trệt thực phẩm, đồ khô) → thử món nhẹ tại quầy địa phương → dạo bờ sông Hàn và cầu sông Hàn gần đó → trở về trước giờ nắng gắt."],
-        ["Lộ trình cả ngày", "Khoảng 5–6 giờ", "Sáng: chợ Hàn và chụp ảnh kiến trúc → trưa: ẩm thực khu trung tâm → chiều: đi bộ bờ sông, ghé công trình kiến trúc lân cận → chiều muộn: quay lại chợ mua quà tặng hoặc đồ khô → tối: ngắm cầu sông Hàn đổi màu."],
-      ],
-    },
-    responsibility: {
-      eyebrow: "14 · Trách nhiệm tham quan",
-      title: "Tham quan hiểu biết và tôn trọng.",
-      intro: "Chợ Hàn là không gian sinh hoạt của cộng đồng. Vài nguyên tắc nhỏ giúp chuyến đi an toàn và giữ gìn nếp sống địa phương.",
-      items: [
-        ["Tôn trọng không gian", "Đi chậm, không chặn lối đi chung và giữ khoảng cách với quầy đang phục vụ. Không tự ý chạm hàng hóa trưng bày nếu không mua."],
-        ["Chụp ảnh có ý thức", "Xin phép trước khi chụp chân dung người bán hoặc khách hàng. Tránh dùng đèn flash gây chói trong không gian chật hẹp."],
-        ["Mua sắm minh bạch", "Hỏi giá, đơn vị tính và hạn sử dụng trước khi đồng ý. Giữ biên lai nếu cần, và mặc cả nhẹ nhàng, lịch sự."],
-        ["Vệ sinh & bền vững", "Bỏ rác đúng nơi, ưu tiên mang túi riêng khi mua đồ khô. Chọn thực phẩm đóng gói nếu không thể bảo quản trong hành trình."],
-      ],
-    },
-    weather: {
-      eyebrow: "15 · Thời tiết",
-      title: "Thời tiết tham khảo khu vực chợ.",
-      copy: "Dự báo tham khảo cho khu vực chợ, cập nhật theo thời gian thực để bạn chủ động mang ô hay áo mưa.",
-    },
-    sourceNote: "Thông tin được biên soạn đối chiếu với tài liệu công khai của cơ quan du lịch và nguồn tham khảo về Đà Nẵng. Giờ mở cửa, giao thông, tiện ích và điều kiện thực tế có thể thay đổi — hãy xác nhận trước khi khởi hành.",
-    footer: {
-      disclaimer: "Trang này là dự án cẩm nang thông tin cho du khách độc lập, phi lợi nhuận; không trực thuộc bất kỳ cơ quan nhà nước, tổ chức chính thức hoặc đơn vị vận hành thương mại nào.",
-      sources: "Thông tin được đối chiếu từ Cổng Thông tin điện tử thành phố Đà Nẵng, cơ quan du lịch Đà Nẵng / Trung tâm Xúc tiến Du lịch Đà Nẵng và tài liệu công khai của Cục Du lịch Quốc gia Việt Nam; không bao gồm khuyến nghị thương mại.",
-      image: "Bản quyền hình ảnh thuộc về các nhiếp ảnh gia và chủ sở hữu gốc. Ảnh được sử dụng với mục đích minh họa thông tin, không hàm ý chứng thực.",
-      copy: "© 2026 Chợ Hàn Đà Nẵng — Cẩm nang du lịch. Bảo lưu mọi quyền.",
-      links: [["/chinh-sach-rieng-tu/", "Quyền riêng tư"], ["/dieu-khoan-su-dung/", "Điều khoản"], ["/tuy-chon-cookie/", "Tùy chọn cookie"]],
-    },
+  "address": "119 Trần Phú, Hải Châu, Đà Nẵng, Việt Nam",
+  "geo": {
+    "latitude": 16.0680836,
+    "longitude": 108.224069
   },
-  en: {
-    locale: "en_US",
-    htmlLang: "en",
-    siteName: "Han Market Da Nang — Travel Guide",
-    shortName: "Han Market",
-    route: "/en/",
-    alternate: "/",
-    alternateLabel: "VI",
-    nav: [["#story", "Story"], ["#explore", "Explore"], ["#services", "Services"], ["#getting-here", "Getting here"], ["#weather", "Weather"], ["#map", "Map"]],
-    meta: { title: "Han Market Da Nang: Opening Hours, Map & Visitor Guide", description: "Han Market (Chợ Hàn) in Da Nang is open daily 06:00–19:00 at 119 Trần Phú, Hải Châu. Reference hours, transport, facilities and visitor tips." },
-    hero: { eyebrow: "Independent guide · Da Nang", title: "Find the market’s everyday rhythm.", lead: "Han Market brings together daily trade, central Vietnamese flavours and colourful aisles a short walk from the Han River.", primary: "Plan a market visit", secondary: "Open the map", fact: "Address · Trần Phú" },
-    quick: [["Location", "119 Trần Phú, Hải Châu"], ["Reference hours", "Daily · 06:00–19:00"], ["Entry", "No market admission fee"], ["Suggested time", "Around 1–2 hours"]],
-    story: { eyebrow: "01 · Context", title: "A trading rhythm beside the Han River.", body: ["Public travel references trace Han Market’s beginnings to informal riverside trading in the 1940s. The space grew with central Da Nang and was rebuilt as a two-storey market in the late twentieth century.", "Today, it remains a place for everyday shopping as well as a stop for visitors observing local urban life. Treat it as a working community space: move unhurriedly, ask prices clearly, and respect vendors while they serve customers."], ticketTitle: "Source note", ticket: "Historic milestones and scale are cross-checked against public travel sources. Conditions on the ground may change; this guide does not replace notices issued by market management." },
-    journey: { eyebrow: "02 · Follow the aisles", title: "A deliberate way to look around.", intro: "A good visit does not require a purchase. These three pauses help you experience the market at a comfortable pace.", steps: [["01", "Look and orient", "Start at the façade, note your entrance, then take a short circuit to understand the types of goods before you decide to buy."], ["02", "Read with your senses", "Food, dried goods and regional specialities offer a window into central Vietnamese flavours; leave reasonable room around counters in service."], ["03", "Choose and exchange", "When buying, ask about price, unit, label and packing before agreeing. A calm, polite exchange is part of the market experience."]] },
-    floors: { eyebrow: "03 · Inside the market", title: "Follow categories, not shopping pressure.", intro: "Layouts and stalls may change. When you arrive, on-site signs and market staff should be treated as the priority reference.", cards: [["Lower level", "Food & regional specialities", "You may find fresh foods, dried goods, seafood, condiments, packaged gifts and food counters. Check labels, use-by information and storage requirements before carrying food onward."], ["Upper level", "Textiles & everyday goods", "This level commonly includes fabrics, clothing, accessories, household goods and souvenirs. For tailoring or made-to-order items, agree the delivery timing and specifications before committing."]] },
-    photoQuote: "A market is not only a place to buy — it is a cross-section of Da Nang’s urban life.",
-    photoLabel: "Illustrative photo: an interior market setting · see copyright note at the foot of this page",
-    practical: { eyebrow: "04 · Practical notes", title: "Small details for an easier market visit.", intro: "Facilities and operations can vary. If you need support, ask market staff or the person in charge when you arrive.", rows: [["Entry & spending", "Public guides describe no admission charge. Any cost depends on your own choices; ask for the price, unit and a receipt if required."], ["Parking", "Motorbike parking areas may be available on streets around the market. Capacity and charges vary, so confirm the entrance, fee and collection time on site."], ["Toilets & access", "Ask for signs or staff directions to toilets, routes and accessibility support at the time of your visit. Do not assume a fixed location or level of service."], ["Food & drink", "Market food and drinks may be available. If you have allergies or dietary requirements, ask about ingredients and preparation before choosing."], ["Shop thoughtfully", "Compare before buying, inspect packaging and dates, and only take food onward when you can store it safely during the rest of your journey."]] },
-    transport: { eyebrow: "05 · Getting here", title: "Arrive from the airport, city centre or active bus routes.", cards: [["From the airport", "Da Nang International Airport", "A taxi or app-booked ride is a direct option when travelling with luggage. Enter 119 Trần Phú precisely and check the best drop-off point for the local traffic flow."], ["Across the city", "Walk · taxi · motorbike", "From central districts and the west bank of the Han River, walking can work in comfortable weather. Taxis and app-based rides are more practical for small groups, luggage or heat and rain."], ["By bus", "Check live public routes", "Urban bus routes, diversions and frequency can change. Use an official public-transport channel or a live journey planner to choose a stop near Trần Phú, Bạch Đằng or Hùng Vương."]], note: "No fixed route numbers, fares or travel times are stated here because they can change. Check weather, traffic and local notices before leaving." },
-    map: { eyebrow: "06 · Location", title: "From map pin to the right entrance.", copy: "The map below shows a reference location for Han Market. Near the market, prioritise street signs and follow the local traffic flow.", addressLabel: "Recorded address" },
-    nearby: { eyebrow: "07 · Continue nearby", title: "Stay close to the Han River’s rhythm.", intro: "The following are place types and public settings, not commercial recommendations for any specific business.", cards: [["Sightseeing", "Han River bridge & waterfront", "The riverside is suitable for a walk, views and continuing a central-city visit after the market."], ["Urban heritage", "Churches & central architecture", "Nearby streets include religious and historic architecture. Respect opening hours, dress guidance and the everyday use of these places."], ["Neutral food choices", "Market counters & local food types", "You may encounter noodles, cakes, drinks and packaged foods. Assess hygiene, ingredients and your dietary needs rather than relying on advertising."], ["Stay", "Central-area accommodation", "The city centre includes hotels, guesthouses and serviced apartments. Choose based on budget, access needs and your own itinerary."], ["Everyday essentials", "Convenience shops & supermarkets", "Essential retail formats are available in the central area. Verify hours directly instead of assuming every option stays open late."], ["Lower-impact travel", "Fuel & EV charging", "Fuel and charging availability can change. Use a real-time transport map to find active public facilities or service points."]] },
-    faq: { eyebrow: "08 · Frequently asked questions", title: "A few clear answers before you go.", items: [["When is Han Market open?", "Several public travel references give roughly 06:00–19:00 daily as a reference window. Some stalls may begin closing earlier, so confirm on site if your plans depend on a particular time."], ["Is there an entry ticket?", "Public guides state that there is no market admission fee. Any spending is for products or services you choose; agree the price before buying."], ["How long should I allow?", "Around 1–2 hours is usually enough for a look around, a snack, or a small purchase. Allow more time for tailoring or a particular item, including questions and checks."], ["Are there parking and toilets?", "Some motorbike parking may be found close to the market, but capacity, charges and entry routes vary. Ask staff about toilets and accessibility facilities rather than relying on old information."], ["Can I negotiate a price?", "Asking and comparing prices is common in a market setting. Keep any negotiation respectful, avoid interrupting service, and continue only when both sides are comfortable."]] },
-    heritage: {
-      eyebrow: "09 · Origins & meaning",
-      title: "From a riverside market to the city’s rhythm.",
-      body: [
-        "Han Market took shape in the 1940s around the commercial strip by the Han River, as Da Nang began expanding eastward. For decades the market has been woven into everyday life in Hai Chau: food trading, goods exchange and a meeting point for neighbouring quarters.",
-        "By the late twentieth century the market was rebuilt as a solid two-storey structure, keeping its role as one of the city’s central civilian markets. No official legend is recorded, but for locals Han Market is part of the urban memory — the calls of vendors, the scent of central Vietnamese spices and the early lights form a rhythm of their own.",
-        "Seeing Han Market as a living community space — rather than a shopping stop — helps visitors approach local culture naturally and respectfully.",
-      ],
-      noteTitle: "Historical note",
-      note: "Dates and scale are cross-checked against public travel references and local press. The market’s layout may change over time; please prioritise on-site notices.",
-    },
-    services: {
-      eyebrow: "10 · Facilities & services",
-      title: "Practical services around the market.",
-      intro: "The notes below describe common service types around the market and neighbouring centre. We do not rank or recommend any specific operator; choose by need and confirm on site.",
-      items: [
-        ["Restrooms", "Public toilets", "Public toilets are usually found in or near the market and on adjacent streets. Location and any fee can vary; ask for signs or the person in charge when you arrive."],
-        ["Parking", "Motorbike & car parking", "Motorbike parking is commonly arranged on streets around the market; some nearby lanes have small car parks. Space and charges shift with peak hours."],
-        ["Food & drink", "Food counters & local eateries", "The ground floor and nearby pavements have food counters, cafés and drink stalls. For dietary needs or allergies, ask about ingredients and preparation before choosing."],
-        ["Accommodation", "Hotels & guesthouses", "Hai Chau centre concentrates many stay types, from hotels to serviced apartments. Pick by budget, walking distance to the market and access needs."],
-        ["Convenience", "Convenience stores & minimarts", "Convenience stores and minimarts line Tran Phu and side streets, handy for essentials or travel items. Verify opening hours directly."],
-        ["Fuel & charging", "Petrol stations & EV charging", "Fuel stations and EV charging points are scattered across the city centre. Availability changes; use a real-time map to find the nearest active point."],
-      ],
-    },
-    transportDetail: {
-      eyebrow: "Getting here in detail",
-      title: "From the airport, bus and taxi to the market.",
-      groups: [
-        ["From the airport", "Da Nang International Airport is about 3 km from the market. With luggage, a taxi or app-based ride is the direct choice; drivers usually know Tran Phu. Enter exactly '119 Tran Phu, Hai Chau' and confirm the drop-off before boarding."],
-        ["Public bus", "Urban bus routes run along Tran Phu, Bach Dang or Hung Vuong. Routes and frequency change; use the public transport operator’s app or a live map to pick the nearest stop, then walk a few minutes into the market."],
-        ["Taxi & ride-hailing", "Traditional taxis and ride apps cover the centre. Agree the fare by meter or in-app estimate before moving, especially at peak times or in rain."],
-        ["Walking & motorbike", "From the west bank of the Han River and the centre, a 10–20 minute walk reaches the market in good weather. Self-drive motorbikes suit those used to local traffic; always wear a helmet and follow the flow."],
-      ],
-    },
-    seasonal: {
-      eyebrow: "11 · By season",
-      title: "A seasonal strategy for Da Nang weather.",
-      intro: "Da Nang has a dry season (roughly January–July) and a rainy season (roughly August–December, with possible storms in October–November). The table below summarises multi-year climate tendencies to help you pick a time and pack accordingly.",
-      caption: "Compiled from multi-year average climate tendencies for Da Nang; actual conditions vary year to year.",
-      rows: [
-        ["Dry season", "Jan–Apr", "Fine sun, little rain, cool early mornings", "Very favourable", "Go early (7–9am) to avoid midday sun", "Hat, water, sunscreen"],
-        ["Early rainy", "May–Jul", "Hot, sudden late-afternoon showers", "Favourable", "Carry a foldable umbrella, go early", "Umbrella, light breathable clothes"],
-        ["Mid rainy", "Aug–Sep", "Frequent rain, occasional local flooding", "Moderate", "Check forecast, avoid heavy-rain hours", "Umbrella, non-slip footwear"],
-        ["Late rainy & storm", "Oct–Dec", "Heavy rain, storm risk, rough river waves", "Take care", "Follow warnings, stay flexible", "Umbrella, raincoat, local alerts"],
-      ],
-    },
-    plans: {
-      eyebrow: "12 · Plans by group",
-      title: "Three routes tuned to your pace.",
-      intro: "Pick a route that fits your companions and mobility so the visit stays relaxed.",
-      items: [
-        ["Families with children", "Favour the ground floor, visit fruit and snack counters, keep a safe distance from cooking areas. Rest at a seated corner and avoid the busy weekend lunch peak. Bring water and spare essentials.", "Slow pace · safe"],
-        ["Photographers & nature", "Early light (7–9am) and late day shape beautiful forms of the market architecture and crowds. Respect vendors when shooting portraits; ask before the lens. Try angles from the façade facing the Han River.", "Early light · good frames"],
-        ["Seniors & limited mobility", "Move on the flat ground floor, visit counters near the entrance. Avoid peak hours and bring a helper if needed. Ask staff about routes and the nearest toilet.", "Ground floor · few stairs"],
-      ],
-    },
-    itineraries: {
-      eyebrow: "13 · Suggested itineraries",
-      title: "Half-day and full-day ideas.",
-      items: [
-        ["Half-day route", "About 2–3 hours", "Leave the hotel early → Han Market (ground-floor food and dry goods) → try a light bite at a local counter → stroll the Han River and nearby Han River Bridge → return before the harsh midday sun."],
-        ["Full-day route", "About 5–6 hours", "Morning: Han Market and architecture photos → midday: central-area dining → afternoon: riverside walk and a nearby heritage building → late afternoon: return to the market for gifts or dry goods → evening: watch the Han River Bridge change colour."],
-      ],
-    },
-    responsibility: {
-      eyebrow: "14 · Visiting responsibly",
-      title: "An informed, respectful visit.",
-      intro: "Han Market is a community living space. A few small principles keep the trip safe and preserve local rhythm.",
-      items: [
-        ["Respect the space", "Move slowly, do not block shared walkways, and keep distance from counters in service. Do not handle displayed goods unless buying."],
-        ["Mindful photography", "Ask before photographing vendors or customers. Avoid flash in tight spaces."],
-        ["Transparent shopping", "Ask price, unit and use-by date before agreeing. Keep a receipt if needed, and bargain gently and politely."],
-        ["Hygiene & sustainability", "Bin waste properly, bring your own bag for dry goods. Choose packaged food if you cannot store it during the trip."],
-      ],
-    },
-    weather: {
-      eyebrow: "15 · Weather",
-      title: "Reference weather for the market area.",
-      copy: "A reference forecast for the market area, refreshed in real time so you can decide on an umbrella or raincoat.",
-    },
-    sourceNote: "This guide cross-checks public tourism material and Da Nang references. Opening hours, transport, facilities and on-the-ground conditions can change — verify before travelling.",
-    footer: { disclaimer: "This is an independent, non-profit visitor information guide. It is not affiliated with any government body, official organisation or commercial operator.", sources: "Information is cross-checked against public materials from the Da Nang City Electronic Information Portal, Da Nang tourism bodies / the Da Nang Tourism Promotion Center, and the Vietnam National Authority of Tourism. No commercial recommendation is included.", image: "Image rights and copyright remain with the original photographers and rights holders. Images are used for informational illustration and do not imply endorsement.", copy: "© 2026 Han Market Da Nang — Travel Guide. All rights reserved.", links: [["/en/privacy-policy/", "Privacy"], ["/en/terms-of-use/", "Terms"], ["/en/cookie-settings/", "Cookie settings"]] },
-  },
+  "mapsShareUrl": "https://maps.app.goo.gl/hZiJQXNHcySsUXM19",
+  "govTourismUrl": "https://danangfantasticity.com/en/discovery/famous-local-markets-in-danang"
 } as const;
-
-export const policies = {
-  "chinh-sach-rieng-tu": { lang: "vi", kind: "privacy" },
-  "dieu-khoan-su-dung": { lang: "vi", kind: "terms" },
-  "tuy-chon-cookie": { lang: "vi", kind: "cookies" },
-  "en/privacy-policy": { lang: "en", kind: "privacy" },
-  "en/terms-of-use": { lang: "en", kind: "terms" },
-  "en/cookie-settings": { lang: "en", kind: "cookies" },
+export const text = {
+  "vi": {
+    "locale": "vi_VN",
+    "htmlLang": "vi",
+    "siteName": "Chợ Hàn Đà Nẵng — Cẩm nang độc lập",
+    "shortName": "Chợ Hàn",
+    "route": "/",
+    "alternate": "/en/",
+    "nav": [
+      [
+        "#gio-mo-cua",
+        "Giờ mở cửa"
+      ],
+      [
+        "#kham-pha",
+        "Mua sắm"
+      ],
+      [
+        "#di-chuyen",
+        "Đường đi"
+      ],
+      [
+        "#thoi-tiet",
+        "Thời tiết"
+      ],
+      [
+        "#ban-do",
+        "Bản đồ"
+      ]
+    ],
+    "meta": {
+      "title": "Chợ Hàn Đà Nẵng: giờ mở cửa, địa chỉ & kinh nghiệm đi chợ",
+      "description": "Tìm Chợ Hàn tại 119 Trần Phú, Đà Nẵng: giờ tham khảo theo nguồn du lịch thành phố, đường đi, mua sắm và lưu ý trước khi đến."
+    },
+    "hero": {
+      "eyebrow": "Cẩm nang độc lập · Đà Nẵng",
+      "title": "Chợ Hàn: một vòng chợ giữa lòng Đà Nẵng.",
+      "lead": "Đồ khô, gia vị, vải vóc và những cuộc trao đổi thường ngày. Chuẩn bị giờ đến, địa chỉ và vài câu hỏi trước khi mua.",
+      "primary": "Xem giờ tham khảo",
+      "secondary": "Mở bản đồ",
+      "fact": "119 Trần Phú · Hải Châu · Đà Nẵng"
+    },
+    "hours": {
+      "title": "Chợ Hàn mở cửa lúc mấy giờ?",
+      "body": "Cổng du lịch thành phố Đà Nẵng ghi giờ 06:00–19:00 hằng ngày trong bài ngày 09/10/2023. Đây là giờ tham khảo từ nguồn đã công bố, không bảo đảm mọi quầy đều mở suốt khung giờ này. Lịch lễ và hoạt động từng quầy có thể khác; kiểm tra thông báo tại chợ trước chuyến đi quan trọng.",
+      "snapshot": "Google Maps hiển thị mức 3,9/5 từ 45.939 lượt đánh giá khi kiểm tra ngày 23/10/2026. Đây là đánh giá bên thứ ba, có thể thay đổi; xem hồ sơ trực tiếp để biết thông tin mới."
+    },
+    "shopping": {
+      "title": "Có gì ở Chợ Hàn?",
+      "intro": "Nguồn du lịch thành phố giới thiệu hàng thiết yếu, quần áo, giày dép, gia vị, đồ khô và vải. Vị trí quầy và hàng có sẵn thay đổi; dùng biển chỉ dẫn thực tế khi đến.",
+      "cards": [
+        [
+          "Đồ khô & gia vị",
+          "Hỏi thành phần, hạn dùng và cách bảo quản. Kiểm tra quy định hải quan nơi đến trước khi mua thực phẩm mang về."
+        ],
+        [
+          "Vải & quần áo",
+          "Kiểm tra kích cỡ, chất liệu và đường may. Nếu đặt may, thống nhất giá, thời gian giao và cách sửa trước khi thanh toán."
+        ],
+        [
+          "So sánh trước khi mua",
+          "Hỏi giá bằng đồng Việt Nam, đơn vị tính và tổng số tiền. Trao đổi lịch sự; bạn có thể từ chối nếu chưa phù hợp."
+        ]
+      ]
+    },
+    "practical": {
+      "title": "Chuẩn bị một chuyến ghé chợ thoải mái",
+      "rows": [
+        [
+          "Thời điểm & thời lượng",
+          "Dành khoảng một giờ như một gợi ý lập kế hoạch, rồi điều chỉnh theo nhu cầu. Đi sớm trong khung giờ tham khảo nếu muốn có thời gian so sánh; đây không phải cam kết về giờ của từng quầy."
+        ],
+        [
+          "Thanh toán",
+          "Mang phương thức thanh toán dự phòng và hỏi quầy có nhận thẻ hay không. Không giả định có máy ATM, đổi tiền hoặc mức giá cố định trong chợ."
+        ],
+        [
+          "Tiện ích & tiếp cận",
+          "Nếu cần nhà vệ sinh, chỗ ngồi, lối ít bậc hoặc hỗ trợ xe lăn, hỏi ban quản lý trước hoặc ngay khi đến. Cẩm nang chưa xác minh đường đi tiếp cận xuyên suốt."
+        ],
+        [
+          "An toàn & ảnh chụp",
+          "Giữ đồ cá nhân gần người, không chắn lối và hỏi trước khi chụp người bán. Hỏi rõ thành phần thực phẩm nếu có dị ứng."
+        ]
+      ]
+    },
+    "transport": {
+      "title": "Địa chỉ và đường đến Chợ Hàn",
+      "intro": "Địa chỉ: 119 Trần Phú, Hải Châu, Đà Nẵng, Việt Nam. Dùng vị trí điểm chợ trong bản đồ, rồi theo biển chỉ dẫn và luồng giao thông để chọn lối vào.",
+      "cards": [
+        [
+          "Taxi hoặc xe đặt qua ứng dụng",
+          "Nhập “Chợ Hàn, 119 Trần Phú” và xác nhận điểm trả khách hợp lệ. Kiểm tra giá và thời gian trong ứng dụng hoặc với tài xế; không có giá cước cố định trong hướng dẫn này."
+        ],
+        [
+          "Đi bộ & xe buýt",
+          "Lập tuyến từ vị trí thực tế của bạn; kiểm tra nắng, mưa và điểm sang đường. Với xe buýt, tra tuyến và điểm dừng đang hoạt động qua nhà vận hành."
+        ],
+        [
+          "Xe máy & gửi xe",
+          "Tuân thủ biển cấm dừng, một chiều và hướng dẫn tại chỗ. Hỏi nơi giữ xe được phép, giá và giờ lấy xe trước khi gửi."
+        ]
+      ]
+    },
+    "weather": {
+      "eyebrow": "Thời tiết · Khu vực chợ",
+      "title": "Thời tiết tham khảo cho chuyến đi",
+      "copy": "Dự báo mô hình Open-Meteo, không phải thông báo vận hành chợ. Kiểm tra cảnh báo địa phương khi thời tiết xấu."
+    },
+    "faq": {
+      "eyebrow": "Câu hỏi thường gặp",
+      "title": "Trước khi đến Chợ Hàn",
+      "items": [
+        [
+          "Chợ Hàn ở đâu?",
+          "Chợ Hàn ở 119 Trần Phú, Hải Châu, Đà Nẵng. Mở liên kết bản đồ trong trang để tìm điểm chợ và chọn lối vào theo biển chỉ dẫn tại chỗ."
+        ],
+        [
+          "Chợ Hàn mở cửa và đóng cửa lúc mấy giờ?",
+          "Bài của cổng du lịch thành phố ngày 09/10/2023 ghi 06:00–19:00 hằng ngày. Đây là giờ tham khảo; từng quầy và lịch lễ có thể khác. Kiểm tra thông báo hiện hành trước khi đi sát giờ mở hoặc đóng cửa."
+        ],
+        [
+          "Nên mua gì và hỏi giá thế nào?",
+          "Nguồn du lịch thành phố giới thiệu gia vị, đồ khô, vải, quần áo và giày dép. Hỏi tổng giá bằng đồng Việt Nam, đơn vị tính, thành phần hoặc kích cỡ trước khi đồng ý."
+        ],
+        [
+          "Đây có phải chợ đêm không?",
+          "Không nên lập kế hoạch mua sắm ban đêm dựa vào hướng dẫn này: giờ tham khảo của cổng du lịch thành phố kết thúc lúc 19:00. Kiểm tra từng quầy thay vì giả định chợ mở muộn."
+        ],
+        [
+          "Có hỗ trợ xe lăn và chỗ gửi xe không?",
+          "Cẩm nang chưa xác minh đường tiếp cận xuyên suốt hoặc chỗ gửi xe được bảo đảm. Hỏi ban quản lý về nhu cầu tiếp cận, nơi gửi xe, chi phí và thời gian trước khi đến."
+        ]
+      ]
+    },
+    "footer": {
+      "disclaimer": "Cẩm nang du lịch độc lập của bên thứ ba; không phải website chính thức của Chợ Hàn hoặc cơ quan du lịch.",
+      "sources": "Giờ và nhóm hàng tham khảo theo cổng du lịch thành phố Đà Nẵng; xem nguồn và ngày trong nội dung.",
+      "image": "Ảnh tư liệu lịch sử; xem tác giả, nguồn và giấy phép dưới đây.",
+      "copy": "© 2026 Han Market Guide.",
+      "links": [
+        [
+          "/chinh-sach-rieng-tu/",
+          "Riêng tư"
+        ],
+        [
+          "/dieu-khoan-su-dung/",
+          "Điều khoản"
+        ],
+        [
+          "/tuy-chon-cookie/",
+          "Tùy chọn phân tích"
+        ]
+      ]
+    }
+  },
+  "en": {
+    "locale": "en_US",
+    "htmlLang": "en",
+    "siteName": "Han Market Da Nang — Independent Guide",
+    "shortName": "Han Market",
+    "route": "/en/",
+    "alternate": "/",
+    "nav": [
+      [
+        "#opening-hours",
+        "Opening hours"
+      ],
+      [
+        "#explore",
+        "Shopping"
+      ],
+      [
+        "#getting-here",
+        "Getting here"
+      ],
+      [
+        "#weather",
+        "Weather"
+      ],
+      [
+        "#map",
+        "Map"
+      ]
+    ],
+    "meta": {
+      "title": "Han Market Da Nang: Opening Hours, Address & Shopping Guide",
+      "description": "Plan a visit to Han Market at 119 Tran Phu, Da Nang: city tourism opening-hour guidance, directions, what to buy and practical shopping tips."
+    },
+    "hero": {
+      "eyebrow": "Independent visitor guide · Da Nang",
+      "title": "Han Market, in the heart of Da Nang.",
+      "lead": "Dry goods, spices, fabrics and everyday trade. Find the address, check the hours and know what to ask before you buy.",
+      "primary": "Check opening hours",
+      "secondary": "Find the market",
+      "fact": "119 Trần Phú · Hải Châu · Đà Nẵng"
+    },
+    "hours": {
+      "title": "What time does Han Market open and close?",
+      "body": "Da Nang’s city tourism portal lists 06:00–19:00 daily in its article dated 9 October 2023. Treat this published schedule as a planning reference: individual stalls may open later or finish earlier, and holiday arrangements can differ. Check notices at the market before a time-sensitive visit.",
+      "snapshot": "Google Maps showed 3.9/5 from 45,939 ratings when checked on 23 October 2026. This is a changing third-party snapshot; open the live listing for updates."
+    },
+    "shopping": {
+      "title": "What can you buy at Han Market?",
+      "intro": "The city tourism portal describes essentials, clothing, shoes, spices, dry goods and fabrics. Stall locations and stock vary; follow the signs you find on arrival.",
+      "cards": [
+        [
+          "Dry goods & spices",
+          "Ask about ingredients, expiry dates and storage. Check your destination’s customs rules before buying food to take home."
+        ],
+        [
+          "Fabrics & clothing",
+          "Check sizes, materials and stitching. For tailoring, agree the price, collection time and alteration terms before paying."
+        ],
+        [
+          "Compare before buying",
+          "Ask for the price in Vietnamese dong, the unit and the total. Bargain politely where appropriate, and walk away if you are unsure."
+        ]
+      ]
+    },
+    "practical": {
+      "title": "Practical tips before you visit",
+      "rows": [
+        [
+          "Timing & duration",
+          "Allow about an hour as a planning suggestion, then adjust to your interests. Arriving earlier within the published hours leaves time to compare stalls; it does not guarantee every stall is open."
+        ],
+        [
+          "Payment",
+          "Carry a backup payment method and ask each stall whether it accepts cards. Do not assume an ATM, currency exchange or fixed prices are available inside."
+        ],
+        [
+          "Facilities & accessibility",
+          "If you need toilets, seating, a route with fewer steps or wheelchair access, ask market management before or on arrival. This guide has not verified a continuous accessible route."
+        ],
+        [
+          "Belongings & photographs",
+          "Keep valuables close, leave aisles clear and ask before photographing vendors. Check food ingredients carefully if you have allergies."
+        ]
+      ]
+    },
+    "transport": {
+      "title": "Han Market address and directions",
+      "intro": "Address: 119 Tran Phu, Hai Chau, Da Nang, Vietnam. Use the market pin on the map, then follow local signs and traffic directions to an entrance.",
+      "cards": [
+        [
+          "Taxi or app-based ride",
+          "Enter “Han Market, 119 Tran Phu” and confirm a legal drop-off. Check the fare and journey time in the app or with the driver; this guide does not quote a fixed fare."
+        ],
+        [
+          "Walking & public bus",
+          "Plan from your actual starting point and check heat, rain and crossings. For buses, check current routes and stops with the transport operator."
+        ],
+        [
+          "Motorbike & parking",
+          "Follow stopping restrictions, one-way signs and local directions. Ask where parking is permitted, the charge and collection hours before leaving a vehicle."
+        ]
+      ]
+    },
+    "weather": {
+      "eyebrow": "Weather · Market area",
+      "title": "Weather for planning your visit",
+      "copy": "An Open-Meteo model forecast, rather than a market operating notice. Check local warnings during severe weather."
+    },
+    "faq": {
+      "eyebrow": "Visitor questions",
+      "title": "Before you go to Han Market",
+      "items": [
+        [
+          "Where is Han Market?",
+          "Han Market is at 119 Tran Phu, Hai Chau, Da Nang. Open the map link on this page for the market pin and choose an entrance using the signs on arrival."
+        ],
+        [
+          "What are Han Market’s opening and closing hours?",
+          "The city tourism portal’s article dated 9 October 2023 lists 06:00–19:00 daily. These are reference hours; individual stalls and holiday schedules may differ. Check current notices if arriving near opening or closing time."
+        ],
+        [
+          "What should I buy, and how do I ask prices?",
+          "The city tourism portal lists spices, dry goods, fabrics, clothing and shoes. Ask for the total price in Vietnamese dong, the unit, ingredients or sizing before agreeing to buy."
+        ],
+        [
+          "Is Han Market a night market?",
+          "Do not plan late-night shopping from this guide: the city tourism portal’s published reference hours end at 19:00. Confirm with individual stalls rather than assuming the market stays open late."
+        ],
+        [
+          "Is wheelchair access or parking guaranteed?",
+          "This guide has not verified a continuous accessible route or guaranteed parking. Ask market management about access needs, permitted parking, charges and collection times before visiting."
+        ]
+      ]
+    },
+    "footer": {
+      "disclaimer": "An independent third-party visitor guide; this is not the official website of Han Market or the tourism authority.",
+      "sources": "Published hours and shopping categories reference Da Nang’s city tourism portal; see the source and date in the guide.",
+      "image": "Historical photographs; see the authors, originals and licences below.",
+      "copy": "© 2026 Han Market Guide.",
+      "links": [
+        [
+          "/en/privacy-policy/",
+          "Privacy"
+        ],
+        [
+          "/en/terms-of-use/",
+          "Terms"
+        ],
+        [
+          "/en/cookie-settings/",
+          "Analytics settings"
+        ]
+      ]
+    }
+  }
 } as const;

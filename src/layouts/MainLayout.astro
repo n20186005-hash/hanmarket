@@ -10,6 +10,7 @@ interface Props {
   title: string;
   description: string;
   path: string;
+  noindex?: boolean;
   structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
@@ -17,8 +18,11 @@ const { lang, title, description, path, structuredData } = Astro.props;
 const content = text[lang];
 const site = Astro.site;
 const absoluteUrl = site ? new URL(path, site).toString() : undefined;
-const alternateUrl = site ? new URL(content.alternate, site).toString() : undefined;
-const socialImage = site ? new URL("/images/han-market-exterior.jpg", site).toString() : undefined;
+const pairs: Record<string, string> = {"/":"/en/", "/chinh-sach-rieng-tu/":"/en/privacy-policy/", "/dieu-khoan-su-dung/":"/en/terms-of-use/", "/tuy-chon-cookie/":"/en/cookie-settings/"};
+const alternatePath = pairs[path] || Object.keys(pairs).find(key => pairs[key] === path);
+const alternateUrl = site && alternatePath ? new URL(alternatePath, site).toString() : undefined;
+const defaultPath = lang === "vi" ? path : alternatePath;
+const socialImage = site ? new URL("/images/han-market-overview.jpg", site).toString() : undefined;
 const jsonLdItems = structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : [];
 ---
 <!doctype html>
@@ -30,6 +34,8 @@ const jsonLdItems = structuredData ? (Array.isArray(structuredData) ? structured
     <meta name="theme-color" content="#1D4051" />
     <meta name="color-scheme" content="light" />
     <title>{title}</title>
+    {Astro.props.noindex && <meta name="robots" content="noindex, follow" />}
+    <script is:inline src="/analytics.js"></script>
     <link rel="icon" type="image/svg+xml" sizes="any" href="/favicon.svg" />
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16.svg" />
     <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32.svg" />
@@ -41,7 +47,7 @@ const jsonLdItems = structuredData ? (Array.isArray(structuredData) ? structured
     {absoluteUrl && <link rel="canonical" href={absoluteUrl} />}
     {absoluteUrl && <link rel="alternate" hreflang={content.htmlLang} href={absoluteUrl} />}
     {alternateUrl && <link rel="alternate" hreflang={lang === "vi" ? "en" : "vi"} href={alternateUrl} />}
-    {site && <link rel="alternate" hreflang="x-default" href={new URL("/", site).toString()} />}
+    {site && defaultPath && <link rel="alternate" hreflang="x-default" href={new URL(defaultPath, site).toString()} />}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content={content.locale} />
     <meta property="og:site_name" content={content.siteName} />
@@ -62,23 +68,7 @@ const jsonLdItems = structuredData ? (Array.isArray(structuredData) ? structured
     <main id="main-content"><slot /></main>
     <Footer lang={lang} />
     <script is:inline>
-      (() => {
-        const key = "han-market-analytics-consent";
-        const accepted = localStorage.getItem(key) === "granted";
-        if (!accepted || document.querySelector("script[data-han-market-ga]")) return;
-        const ga = document.createElement("script");
-        ga.async = true;
-        ga.src = "https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP";
-        ga.dataset.hanMarketGa = "true";
-        document.head.appendChild(ga);
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){window.dataLayer.push(arguments);}
-        gtag("js", new Date());
-        gtag("config", "G-HXM22WWPKP", { anonymize_ip: true });
-      })();
-    </script>
-    <script is:inline>
-      if (import.meta.env.PROD && "serviceWorker" in navigator) {
+      if ("serviceWorker" in navigator && location.protocol === "https:") {
         window.addEventListener("load", () => {
           navigator.serviceWorker.register("/sw.js").catch(() => {});
         });

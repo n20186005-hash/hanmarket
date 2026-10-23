@@ -3,7 +3,6 @@
 // Both languages share a single language-agnostic @id so Google resolves them to one entity.
 import { market, text, type Language } from "../data/content";
 
-const DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 const FALLBACK_ROOT = "https://hanmarket.org";
 
 function root(siteBase?: string): string {
@@ -14,18 +13,17 @@ export function buildSchemas(lang: Language, siteBase?: string): Record<string, 
   const c = text[lang];
   const siteRoot = root(siteBase);
   const pageUrl = siteRoot + (lang === "vi" ? "/" : "/en/");
-  const [opens, closes] = market.hours.split(/[–-]/).map((s) => s.trim());
+
 
   const attraction: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": ["TouristAttraction", "LocalBusiness"],
+    "@type": ["TouristAttraction", "Place"],
     "@id": `${siteRoot}/#attraction`,
     name: lang === "vi" ? "Chợ Hàn" : "Han Market",
     alternateName: lang === "vi" ? ["Han Market", "Đà Nẵng Chợ Hàn"] : ["Chợ Hàn", "Da Nang Han Market"],
     description: c.meta.description,
     url: pageUrl,
-    image: [`${siteRoot}/images/han-market-exterior.jpg`, `${siteRoot}/images/han-market-interior.jpg`, `${siteRoot}/images/han-river.jpg`],
-    isAccessibleForFree: true,
+    image: [`${siteRoot}/images/han-market-overview.jpg`, `${siteRoot}/images/han-market-vegetables.jpg`, `${siteRoot}/images/han-market-produce.jpg`],
     address: {
       "@type": "PostalAddress",
       streetAddress: "119 Trần Phú",
@@ -40,16 +38,7 @@ export function buildSchemas(lang: Language, siteBase?: string): Record<string, 
       longitude: market.geo.longitude,
     },
     hasMap: market.mapsShareUrl,
-    openingHoursSpecification: [
-      { "@type": "OpeningHoursSpecification", dayOfWeek: DAYS, opens, closes },
-    ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: market.rating.value,
-      reviewCount: market.rating.count,
-      bestRating: "5",
-    },
-    sameAs: [market.mapsShareUrl, market.govTourismUrl],
+    sameAs: [market.mapsShareUrl],
   };
 
   const faq: Record<string, unknown> = {

@@ -4,10 +4,10 @@
   "private": true,
   "description": "Independent bilingual visitor information guide for Han Market in Da Nang.",
   "type": "module",
-  "packageManager": "pnpm@10.4.1",
+  "packageManager": "pnpm@11.25.0",
   "engines": {
-    "node": "22.13.0",
-    "pnpm": "10.4.1"
+    "node": ">=24.12.0 <25",
+    "pnpm": ">=11 <12"
   },
   "scripts": {
     "dev": "astro dev --host 0.0.0.0",

@@ -1,0 +1,35 @@
+[
+  {
+    "file": "public/images/han-market-overview.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Han_Market_-_Da_Nang,_Vietnam_-_DSC02375.JPG",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/8/8a/Han_Market_-_Da_Nang%2C_Vietnam_-_DSC02375.JPG?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=original",
+    "author": "Daderot",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "photoDate": "2014-08-01",
+    "changes": "Resized to 1600px maximum edge and JPEG quality 80; CSS crop on display.",
+    "sha256": "aa5b6eb22a9a6e1dc42914ede71a2ea41f446823acba5add1624022614dd4187"
+  },
+  {
+    "file": "public/images/han-market-vegetables.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Produce_in_Han_Market_-_Da_Nang,_Vietnam_-_DSC02388.JPG",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Produce_in_Han_Market_-_Da_Nang%2C_Vietnam_-_DSC02388.JPG?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=original",
+    "author": "Daderot",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "photoDate": "2014-08-01",
+    "changes": "Resized to 1600px maximum edge and JPEG quality 80; CSS crop on display.",
+    "sha256": "b2a65b9850da64a682f1102af56abaadd14ce0a07dfd56d4e5141f3b6856aed5"
+  },
+  {
+    "file": "public/images/han-market-produce.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Produce_in_Han_Market_-_Da_Nang,_Vietnam_-_DSC02390.JPG",
+    "original": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Produce_in_Han_Market_-_Da_Nang%2C_Vietnam_-_DSC02390.JPG?utm_source=commons.wikimedia.org&amp;utm_campaign=index&amp;utm_content=original",
+    "author": "Daderot",
+    "license": "CC0-1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "photoDate": "2014-08-01",
+    "changes": "Resized to 1600px maximum edge and JPEG quality 80; CSS crop on display.",
+    "sha256": "84d1db53431d3858edcc5c4951a8e2aec8b05d01c90ddc6129bdc36399faafcb"
+  }
+]

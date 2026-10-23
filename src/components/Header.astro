@@ -3,6 +3,10 @@
 import { text, type Language } from "../data/content";
 const { lang } = Astro.props as { lang: Language };
 const c = text[lang];
+const pairs: Record<string,string> = {"/":"/en/", "/chinh-sach-rieng-tu/":"/en/privacy-policy/", "/dieu-khoan-su-dung/":"/en/terms-of-use/", "/tuy-chon-cookie/":"/en/cookie-settings/"};
+const path = Astro.url.pathname;
+const viPath = lang === "vi" ? path : Object.keys(pairs).find(k => pairs[k] === path) || "/";
+const enPath = pairs[viPath] || "/en/";
 ---
 <header class="site-header">
   <div class="wrap header-row">
@@ -11,15 +15,15 @@ const c = text[lang];
       <span class="brand-copy"><span class="brand-name">{c.shortName}</span><span class="brand-sub">{lang === "vi" ? "Cẩm nang độc lập" : "Independent guide"}</span></span>
     </a>
     <nav class="nav-desktop" aria-label={lang === "vi" ? "Điều hướng chính" : "Primary navigation"}>
-      {c.nav.map(([href, label]) => <a href={href}>{label}</a>)}
+      {c.nav.map(([href, label]) => <a href={c.route + href}>{label}</a>)}
       <span class="language-switch" aria-label={lang === "vi" ? "Ngôn ngữ" : "Language"}>
-        <a href={lang === "vi" ? c.route : c.alternate} aria-current={lang === "vi" ? "page" : undefined}>VI</a>
-        <a href={lang === "en" ? c.route : c.alternate} aria-current={lang === "en" ? "page" : undefined}>EN</a>
+        <a href={viPath} aria-current={lang === "vi" ? "page" : undefined}>VI</a>
+        <a href={enPath} aria-current={lang === "en" ? "page" : undefined}>EN</a>
       </span>
     </nav>
     <nav class="mobile-nav" aria-label={lang === "vi" ? "Điều hướng di động" : "Mobile navigation"}>
-      <a href={lang === "vi" ? "#ban-do" : "#map"}>{lang === "vi" ? "Bản đồ" : "Map"}</a>
-      <span class="language-switch"><a href={lang === "vi" ? c.route : c.alternate} aria-current={lang === "vi" ? "page" : undefined}>VI</a><a href={lang === "en" ? c.route : c.alternate} aria-current={lang === "en" ? "page" : undefined}>EN</a></span>
+      <details class="mobile-menu"><summary>{lang === "vi" ? "Mục lục" : "Contents"}</summary><div>{c.nav.map(([href,label]) => <a href={c.route+href}>{label}</a>)}</div></details>
+      <span class="language-switch"><a href={viPath} aria-current={lang === "vi" ? "page" : undefined}>VI</a><a href={enPath} aria-current={lang === "en" ? "page" : undefined}>EN</a></span>
     </nav>
   </div>
 </header>

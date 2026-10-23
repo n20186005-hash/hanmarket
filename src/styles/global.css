@@ -76,7 +76,7 @@ button, input { font: inherit; }
 .info-ticket p { margin: 0; font-size: .92rem; }
 
 .quick-band { position: relative; overflow: hidden; padding-block: 30px; background: var(--indigo); color: white; }
-.quick-band:before { content: ""; position: absolute; inset: 0; background: url('/images/han-river.jpg') center/cover; mix-blend-mode: screen; opacity: .16; }
+.quick-band:before { content: ""; position: absolute; inset: 0; background: url('/images/han-market-produce.jpg') center/cover; mix-blend-mode: screen; opacity: .16; }
 .quick-grid { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,.19); }
 .quick-item { min-height: 116px; padding: 17px 20px; background: rgba(16,42,53,.9); }
 .quick-item span { display: block; margin-bottom: 8px; color: #f2b08e; font: 700 .62rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
@@ -353,3 +353,9 @@ button, input { font: inherit; }
 @media (max-width: 840px) {
   .advice-grid { grid-template-columns: 1fr; }
 }
+
+.photo-credits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.5rem 0}.photo-credits figure{margin:0}.photo-credits img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}.photo-credits figcaption{font-size:.8rem;line-height:1.8;margin-top:.5rem}.site-footer #photo-credits h2{font-size:1.2rem}.weather [hidden]{display:none!important}@media(max-width:600px){.photo-credits{grid-template-columns:1fr}.hero-fact{max-width:90%;font-size:.75rem}}
+
+.mobile-menu{position:relative}.mobile-menu summary{cursor:pointer;font-size:.8rem}.mobile-menu>div{position:absolute;right:0;top:2rem;z-index:30;background:#f4f0e7;color:#1d4051;min-width:12rem;padding:.8rem;box-shadow:0 5px 20px #0002}.mobile-menu>div>a{display:block;padding:.5rem}
+
+section[id]{scroll-margin-top:6.5rem}@media(max-width:560px){.header-row{flex-wrap:wrap;row-gap:6px;padding-block:9px}.mobile-nav{margin-left:auto;gap:8px}}

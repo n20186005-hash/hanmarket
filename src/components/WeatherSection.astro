@@ -1,14 +1,9 @@
 ---
-// Server Component: fetches weather at build time (server-side, cached in module), renders a
-// reference current condition + multi-day forecast plus plain-language visitor advice.
-// A light client script refreshes from the edge-cached /api/weather route so visitors see
-// near-real-time data without seeing any API/key details.
-import { fetchWeather } from "../lib/weather";
 import { text, type Language } from "../data/content";
 
 const { lang } = Astro.props as { lang: Language };
 const c = text[lang];
-const w = await fetchWeather(lang);
+const w = {current: {tempC:"—",feelsC:"—",humidity:"—",windKmh:"—",precipMm:"—",uv:"—",text:lang === "vi" ? "Đang tải dự báo…" : "Loading forecast…",umbrellaText:""},daily: [] as Array<any>,advice:{risk:[] as string[],outfit:[] as string[],activity:[] as string[],gear:[] as string[]},updatedLabel:""};
 const sectionId = lang === "vi" ? "thoi-tiet" : "weather";
 const riskHidden = w.advice.risk.length === 0;
 ---
@@ -29,13 +24,13 @@ const riskHidden = w.advice.risk.length === 0;
             <li>{lang === "vi" ? "Độ ẩm" : "Humidity"} <b id="w-humidity">{w.current.humidity}%</b></li>
             <li>{lang === "vi" ? "Gió" : "Wind"} <b id="w-wind">{w.current.windKmh} km/h</b></li>
             <li>{lang === "vi" ? "Lượng mưa" : "Precip"} <b id="w-precip">{w.current.precipMm} mm</b></li>
-            <li>UV <b id="w-uv">{w.current.uv}</b></li>
+            <li>{lang === "vi" ? "UV tối đa ngày" : "Daily maximum UV"} <b id="w-uv">{w.current.uv}</b></li>
           </ul>
           <p class="weather-umbrella" id="w-umbrella">{w.current.umbrellaText}</p>
         </div>
       </div>
       <div class="weather-forecast">
-        <p class="weather-updated" id="w-updated">{lang === "vi" ? "Cập nhật" : "Updated"} {w.updatedLabel}</p>
+        <p class="weather-updated" id="w-updated" role="status" aria-live="polite">{lang === "vi" ? "Cập nhật" : "Updated"} {w.updatedLabel}</p>
         <div class="weather-days" id="w-days">
           {w.daily.map((d) => (
             <article class="weather-day">
@@ -50,6 +45,7 @@ const riskHidden = w.advice.risk.length === 0;
       </div>
     </div>
 
+    <noscript>{lang === "vi" ? "Bật JavaScript để tải dự báo hiện tại; trang không hiển thị dữ liệu thời tiết mẫu." : "Enable JavaScript to load the current forecast. No sample weather is shown."}</noscript>
     <div class="weather-advice">
       <div class="advice-risk" id="w-risk" hidden={riskHidden}>
         <strong>{lang === "vi" ? "⚠ Lưu ý rủi ro" : "⚠ Risk notice"}</strong>
@@ -71,14 +67,17 @@ const riskHidden = w.advice.risk.length === 0;
       </div>
     </div>
   </div>
+<p class="wrap weather-updated"><a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a> · {lang === "vi" ? "Dự báo mô hình, có thể lưu đệm tối đa 30 phút. Không xác nhận giờ mở cửa hoặc đóng quầy." : "Model forecast, cached for up to 30 minutes. It does not establish stall opening or closure."}</p>
 </section>
 <script is:inline>
   (function () {
     var lang = (document.documentElement.lang || "en").indexOf("vi") === 0 ? "vi" : "en";
     function set(id, v) { var el = document.getElementById(id); if (el) el.textContent = v; }
-    function fill(id, arr) { var el = document.getElementById(id); if (el && Array.isArray(arr)) el.innerHTML = arr.map(function (t) { return "<li>" + t + "</li>"; }).join(""); }
+    function fill(id, arr) { var el = document.getElementById(id); if (el && Array.isArray(arr)) { el.replaceChildren(); arr.forEach(function(t) { var li=document.createElement("li");li.textContent=t;el.appendChild(li); }); } }
+    function escape(v) { return String(v).replace(/[&<>"']/g, function(c) { return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
     function toggle(colId, listId, arr) { var col = document.getElementById(colId), list = document.getElementById(listId); if (col) col.hidden = !(arr && arr.length); if (list) fill(listId, arr); }
-    fetch("/api/weather?lang=" + lang).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (w) {
+    fetch("/api/weather?lang=" + lang, {cache:"no-store", signal:AbortSignal.timeout(8000)}).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (w) {
+      if (!w || w.stale || !w.current || !Number.isFinite(w.current.tempC) || !Array.isArray(w.daily) || !w.daily.length || !w.advice || !["feelsC","humidity","windKmh","precipMm","uv"].every(function(k){return Number.isFinite(w.current[k]);}) || !w.daily.every(function(d){return Number.isFinite(d.tMax) && Number.isFinite(d.tMin) && (d.precipProb === null || Number.isFinite(d.precipProb));}) || !["risk","outfit","activity","gear"].every(function(k){return Array.isArray(w.advice[k]);})) throw new Error("Invalid forecast");
       set("w-temp", w.current.tempC + "°");
       set("w-feels", w.current.feelsC + "°");
       set("w-humidity", w.current.humidity + "%");
@@ -87,11 +86,11 @@ const riskHidden = w.advice.risk.length === 0;
       set("w-uv", w.current.uv);
       set("w-desc", w.current.text);
       set("w-umbrella", w.current.umbrellaText);
-      set("w-updated", (lang === "vi" ? "Cập nhật " : "Updated ") + w.updatedLabel);
+      set("w-updated", (lang === "vi" ? "Cập nhật " : "Updated ") + w.updatedLabel + (lang === "vi" ? " · giờ Đà Nẵng · Open-Meteo" : " · Da Nang time · Open-Meteo"));
       var days = document.getElementById("w-days");
       if (days && Array.isArray(w.daily)) {
         days.innerHTML = w.daily.map(function (d) {
-          return '<article class="weather-day"><span class="wd-day">' + d.weekday + '</span><span class="wd-date">' + d.dateLabel + '</span><span class="wd-text">' + d.text + '</span><span class="wd-temp"><b>' + d.tMax + '°</b> / ' + d.tMin + '°</span><span class="wd-precip">' + (d.precipProb != null ? d.precipProb + "%" : "—") + '</span></article>';
+          return '<article class="weather-day"><span class="wd-day">' + escape(d.weekday) + '</span><span class="wd-date">' + escape(d.dateLabel) + '</span><span class="wd-text">' + escape(d.text) + '</span><span class="wd-temp"><b>' + escape(d.tMax) + '°</b> / ' + escape(d.tMin) + '°</span><span class="wd-precip">' + (d.precipProb != null ? escape(d.precipProb) + "%" : "—") + '</span></article>';
         }).join("");
       }
       toggle("col-outfit", "w-outfit", w.advice.outfit);
@@ -100,6 +99,9 @@ const riskHidden = w.advice.risk.length === 0;
       var riskWrap = document.getElementById("w-risk"), riskList = document.getElementById("w-risk-list");
       if (riskWrap) riskWrap.hidden = !(w.advice.risk && w.advice.risk.length);
       if (riskList) fill("w-risk-list", w.advice.risk);
-    }).catch(function (e) {});
+    }).catch(function () {
+      set("w-desc", lang === "vi" ? "Tạm thời không có dự báo" : "Forecast temporarily unavailable");
+      set("w-updated", lang === "vi" ? "Không có dữ liệu thời tiết đã xác minh. Thử tải lại trang hoặc kiểm tra cảnh báo địa phương." : "No verified weather data is available. Reload to retry or check local warnings.");
+    });
   })();
 </script>

@@ -1,5 +1,6 @@
 ---
 // River-market editorial style: a sober indigo footer communicates independence, sources and image rights without commercial promotion.
+import photos from "../data/photos.json";
 import { text, market, type Language } from "../data/content";
 const { lang } = Astro.props as { lang: Language };
 const c = text[lang].footer;
@@ -14,13 +15,14 @@ const home = text[lang].route;
         <p class="footer-sources">{c.sources}</p>
         <p class="footer-sources">{c.image}</p>
         <p class="footer-sources">
-          <a href={market.govTourismUrl} target="_blank" rel="noopener noreferrer">{lang === "vi" ? "Cục Du lịch Quốc gia Việt Nam ↗" : "Vietnam National Authority of Tourism ↗"}</a>
+          <a href={market.govTourismUrl} target="_blank" rel="noopener noreferrer">{lang === "vi" ? "Cổng du lịch thành phố Đà Nẵng ↗" : "Da Nang city tourism portal ↗"}</a>
         </p>
       </div>
       <nav class="footer-links" aria-label={lang === "vi" ? "Liên kết pháp lý" : "Legal links"}>
         {c.links.map(([href, label]) => <a href={href}>{label}</a>)}
       </nav>
     </div>
+    <section id="photo-credits" aria-labelledby="credits-title"><h2 id="credits-title">{lang === "vi" ? "Ảnh tư liệu & giấy phép" : "Historical photographs & licences"}</h2><p>{lang === "vi" ? "Ảnh năm 2014, không xác nhận diện mạo hoặc quầy hàng hiện nay. Thu nhỏ JPEG; có cắt khung khi hiển thị." : "Photographs from 2014, rather than confirmation of current stalls or appearance. Resized JPEGs; display crops may apply."}</p><div class="photo-credits">{photos.map((photo,i)=><figure><img src={"/"+photo.file.replace("public/","")} alt={lang === "vi" ? ["Không gian Chợ Hàn năm 2014","Rau củ tại Chợ Hàn năm 2014","Quầy rau Chợ Hàn năm 2014"][i] : ["Han Market interior in 2014","Vegetables at Han Market in 2014","Produce stall at Han Market in 2014"][i]} width="1600" height="1067" loading="lazy" /><figcaption><a href={photo.source} rel="noopener noreferrer" target="_blank">{lang === "vi" ? "Ảnh gốc" : "Original photograph"} {i+1}</a> · {photo.author} · 2014 · <a href={photo.licenseUrl} rel="noopener noreferrer" target="_blank">CC0 1.0</a></figcaption></figure>)}</div></section>
     <div class="footer-bottom"><span>{c.copy}</span><span>{lang === "vi" ? "Đà Nẵng · Việt Nam" : "Da Nang · Vietnam"}</span></div>
   </div>
 </footer>
